@@ -1,5 +1,8 @@
 require 'cinch'
 require 'figaro'
+require 'redis'
+require 'ohm'
+require 'json'
 
 require "adventure_channel/adventure_game"
 require "adventure_channel/version"
@@ -9,11 +12,18 @@ Figaro.load
 
 module AdventureChannel
 
-  def self.launch_bot
-    @redis = Redis.new({
-      :host => ENV['redis_host'],
-      :port => ENV['redis_port']})
+  def self.init_redis
 
+    Ohm.redis = Redic.new("redis://#{ENV['redis_host']}:#{ENV['redis_port']}")
+
+    # @redis = Redis.new({
+    #   host: ENV['redis_host'],
+    #   port: ENV['redis_port'],
+    #   db: ENV['redis_db_id']})
+  end
+
+  def self.launch_bot
+    @redis = init_redis
     @game = AdventureGame::Game.new
 
     @bot = Cinch::Bot.new do

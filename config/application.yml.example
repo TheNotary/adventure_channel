@@ -1,0 +1,18 @@
+######################
+#    REDIS CONFIG    #
+######################
+
+redis_host: "127.0.0.1"
+redis_port: 6379
+redis_db_id: 1
+
+
+################
+# IRC Settings #
+################
+
+irc_nick: "AdvChan"
+# irc_server:   "irc.esper.net"
+irc_server:   "127.0.0.1"
+irc_channel:  "#adventure_channel"
+auth_token: "meow"

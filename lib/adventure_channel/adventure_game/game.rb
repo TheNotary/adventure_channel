@@ -49,7 +49,7 @@ module AdventureChannel
       end
 
       def users
-        
+
       end
 
     end

@@ -2,7 +2,7 @@ module AdventureChannel
 
   module AdventureGame
 
-    class Unit
+    class Unit < Ohm::Model
       attr_reader :name, :hp, :mp
 
       def initialize(name:, hp:, mp: nil)
