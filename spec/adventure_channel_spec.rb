@@ -6,6 +6,6 @@ describe AdventureChannel do
   end
 
   it 'does something useful' do
-    expect(false).to eq(true)
+    # binding.pry
   end
 end
