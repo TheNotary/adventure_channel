@@ -27,9 +27,11 @@ When a monster shows up, you must fight it off.
 
 #### !s | !stat
 
-Get status of the room:
+Get status of the adventure:
 
 ```
+~ The party is in Dungeon: The Disaster Den of Dart ~
+~
 ~ A [lvl 2 green goblin {gg1}] appeared 2 minutes ago ~
 > No one has helped fend it off yet!
 > It's stealing things from the channel coffer.
@@ -109,22 +111,26 @@ Equips an item.
 ```
 
 
-### Commerce Commands
+## Exploring Commands
 
-#### !t | !trade
+#### !pick_lock
 
-Trade items with friends.  Be nice!
-
-#### !market
-
-Opens the market sub menu where you can sell loot and buy potions and spells.  
+Use your lock picking skill to see if you can get past the door.
 
 
-### World Map Commands
+#### !look
+
+Recieve a message about what the current part of the dungeon looks like.  
+
+
+#### !go [north|south|east|west]
+
+Travel through the dungeon to get to rooms and stuff.  
+
 
 #### !explore
 
-Explore a new area of the current dungeon, marking it on the map
+Explore to a new area of the current dungeon, marking it on the map.  
 
 
 #### !map
@@ -137,18 +143,40 @@ Print the map of the current zone
 Print the world map
 
 
-#### !travel
+#### !travel_town
 
 Vote for the next location to travel to next after the next travel interval occurs...
 Everyone 30 minutes, the channel must leave the dungeon its currently exploring along the quest line and go back to town to replenish???
 
 
 
+
+## Commerce Commands
+
+#### !t | !trade
+
+Trade items with friends.  Be nice!
+
+#### !market
+
+Opens the market sub menu where you can sell loot and buy potions and spells.  
+
+
+
+
+
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+### Testing
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To run all the tests, you need to at least run an IRC server locally and have config/application.yml configured correctly to connect to it.  Theoretically you could use a remote IRC server, but that's less flexible.  Additionally, as bazz showed me, you can substantially decrese the connection times by also running a ZNC server locally which kind of sits there maintaining a connection to an IRC server so you don't need to waste time re-handshaking with that ancient protocol.  Once that's done you're good, run `rake` like any other piece of professional open source software.  
+
+You can use bin/console to play around with things too.  But ideally you'll just create a new test for the feature you're working on.  
+
+## License
+
+GNU AGPL v3
+
 
 ## Contributing
 

@@ -5,11 +5,16 @@ require 'ohm'
 # require 'ohm/contrib'
 require 'json'
 
+# Hoisting realllyyyyy matters here....
 require "adventure_channel/adventure_game"
+require "adventure_channel/framework_crap"
 require "adventure_channel/version"
+
+$app_env = 'production'
 
 Figaro.application.path = File.expand_path('../../config/application.yml', __FILE__)
 Figaro.load
+
 
 module AdventureChannel
 
@@ -36,44 +41,43 @@ module AdventureChannel
 
   end
 
+  # This method includes the routing information for the app more or less
   def self.launch_bot
+    include AdventureGame
+
     @redis = init_redis
-    @game = AdventureGame::Game.new
+
+    $Game = AdventureGame::Game.new
 
     @bot = Cinch::Bot.new do
       configure do |c|
         c.nick = ENV['irc_nick']
         c.server = ENV['irc_server']
-        c.channels = [ENV['irc_channel']]
-        c.verbose = true
+        c.channels = ENV['irc_channel'].split
       end
+
+      ################
+      #    Routes    #
+      ################
+      #
+      # Hint, look in adventure_game/framework_crap/controller.rb to see what
+      # methods are being fired from here
+
+      # help
+      on(:message, /^!help/)       { |m| respond_to_help(m) }
+      on(:message, /^!h(?:\s+|$)/) { |m| respond_to_help(m) }
 
       # inventory
-      on :message, /(^!inventory|^!i)/ do |m|
-        resp = @game.users.find(m.user.nick).inventory
-        m.user.send "~~ #{m.user.nick} ~~"
-      end
+      on(:message, /^!inventory/)  { |m| respond_to_inventory(m) }
+      on(:message, /^!i(?:\s+|$)/) { |m| respond_to_inventory(m) }
 
       # join
-      on :message, /[\!join|\!j]/ do |m|
+      on :message, /!join/, {}     { |m| respond_to_join(m) }
 
-      end
+      # initiate_battle
+      on :message, /^!initiate_battle/, {} { |m| respond_to_initiate_battle(m) }
 
-
-      on :message, /^!msg (.+?) (.+)/ do |m, who, text|
-        User(who).send text
-      end
-
-      # this is something that the backend fires to start a new battle
-      on :message, /^!initiate_battle (.+)/ do |m, auth_token|
-        return unless auth_token == ENV['auth_token']
-        return if @game.status == :in_battle
-
-        resp = @game.start_battle(m)
-
-        m.user.send resp
-      end
-
+      # fight
       on :message, /^[!f|!fight] (.+?)/ do |m, which_mob|
         # get mob
         # apply_attack to mob's HP
@@ -81,22 +85,15 @@ module AdventureChannel
         m.reply "You fought a mob!"
       end
 
+      # FIXME: example, remove this
+      on :message, /^!msg (.+?) (.+)/ do |m, who, text|
+        User(who).send text
+      end
+
     end
 
+    $adventure_channel_bot = @bot
     @bot.start
   end
-
-
-  # This is the IRC version
-  # def self.announce(m, resp)
-  #   case resp[:respond_to]
-  #   when :sender
-  #     m.user.send resp[:message]
-  #   when :channel
-  #     m.reply resp[:message]
-  #   when :admin
-  #   end
-  # end
-
 
 end

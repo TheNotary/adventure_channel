@@ -19,12 +19,11 @@ module AdventureChannel
       end
 
       def start_battle
-        return nil if @current_battle
+        return "A battle is already in progress" if @current_battle
 
         @current_battle = Battle.new
         @current_battle.spawn_mob(Mob.create(name: 'Green Goblin', hp: 20))
 
-        # create_announcement(:battle_started)
         "A battle has started"
       end
 
