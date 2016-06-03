@@ -2,6 +2,7 @@ require 'cinch'
 require 'figaro'
 require 'redis'
 require 'ohm'
+require 'ohm/contrib'
 require 'json'
 
 require "adventure_channel/adventure_game"
@@ -13,13 +14,30 @@ Figaro.load
 module AdventureChannel
 
   def self.init_redis
-
     Ohm.redis = Redic.new("redis://#{ENV['redis_host']}:#{ENV['redis_port']}")
+    populate_database
 
     # @redis = Redis.new({
     #   host: ENV['redis_host'],
     #   port: ENV['redis_port'],
     #   db: ENV['redis_db_id']})
+    Ohm.redis
+  end
+
+  # upon boot, all items will get loaded into redis (yes... again)
+  def self.populate_database
+    items = JSON.parse(File.read(File.expand_path('../../config/items.json', __FILE__)))["items"]
+
+    items.each do |i|
+      c = { name: i["name"],
+            item_class: i["item_class"],
+            value: i["value"],
+            meta: i["meta"]}
+      c = c.merge({code: i["code"]}) if i["code"]
+
+      Item.create(c)
+    end
+
   end
 
   def self.launch_bot

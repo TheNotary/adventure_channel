@@ -2,29 +2,20 @@ module AdventureChannel
 
   module AdventureGame
 
-    class User < Ohm::Model    # < Unit
-      attribute :name
-      attribute :equipment
-      attribute :inventory
+    class User < Ohm::Model   #  Ohm::Model    # < Unit
+      battleable
 
-      index :name
-      # attribute :id
+      def self.spawn_for_new_player(name: nil)
+        s = self.create(name: name)
+        s.equipment = Loadout.spawn_for_new_player
+        s
+      end
 
-      attr_accessor :name, :equipment, :inventory # , :id
+      def furnish_with_default_equipment
+        # @equipment = { right_hand: "Jaggedly sharp e-waste specimen" } # {left_hand: 'axe', right_hand: 'axe'}
+      end
 
-      #
-      # def initialize(name: nil)
-      #   @name = name
-      #   # @id = id
-      #
-      #   @equipment = { right_hand: Item.find_by(name: "Jaggedly sharp e-waste specimen") } # {left_hand: 'axe', right_hand: 'axe'}
-      #   @inventory = ['heavily chlorinated water']
-      # end
 
-      # this function will change depending on what database is used
-      # def set_id(id)
-      #   @id = id
-      # end
 
 
     end

@@ -1,0 +1,50 @@
+{
+  "items": [
+    { "code": "wep-0001",
+      "name": "jaggedly sharp e-waste specimen",
+      "item_class": "weapon",
+      "value": "20",
+      "meta": { "dmg": "1", "dmg_type": "thunder", "swing_time": "2.1" }
+    },
+
+
+    { "code": "legs-0001",
+      "name": "no pants bro, they'z lost or some shit",
+      "item_class": "armor",
+      "value": "20",
+      "meta": { "slot": ["legs"], "def": "1", "weight": "1", "resistance-cold": "50", "modify-max_hp": "20" }
+    },
+
+
+    { "name": "health potion",
+      "item_class": "consumable",
+      "value": "20",
+      "meta": { "duration": "0", "modify-current_hp": "10", "stackable": "true" }
+    },
+    { "name": "Spell: Fire I",
+      "item_class": "consumable",
+      "value": "500",
+      "meta": { "duration": "0", "learn-spell": "Fire I" }
+    },
+    { "name": "Scroll: Dopleganger",
+      "item_class": "consumable",
+      "value": "500",
+      "meta": { "duration": "0", "learn-ninjitsu": "Dopleganger" }
+    },
+    { "name": "Map of Shrikzu",
+      "item_class": "consumable",
+      "value": "500",
+      "meta": { "duration": "0", "learn-map_location": "shrikzu" }
+    },
+
+
+    { "name": "A really shitty resume from 2015",
+      "item_class": "generic_item",
+      "value": "0",
+      "meta": { "quality": "3"}
+    }
+
+
+  ]
+
+}
