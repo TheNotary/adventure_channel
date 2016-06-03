@@ -2,7 +2,7 @@ module AdventureChannel
 
   module AdventureGame
 
-    class User < Ohm::Model   #  Ohm::Model    # < Unit
+    class User < Ohm::Model
       battleable
 
       def self.spawn_for_new_player(name: nil)
@@ -14,8 +14,6 @@ module AdventureChannel
       def furnish_with_default_equipment
         # @equipment = { right_hand: "Jaggedly sharp e-waste specimen" } # {left_hand: 'axe', right_hand: 'axe'}
       end
-
-
 
 
     end

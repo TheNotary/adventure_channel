@@ -3,6 +3,7 @@ module AdventureChannel
   module AdventureGame
 
     class Game
+
       attr_reader :current_battle, :mobs, :players
 
       def initialize
@@ -21,7 +22,7 @@ module AdventureChannel
         return nil if @current_battle
 
         @current_battle = Battle.new
-        @current_battle.spawn_mob(Unit.new(name: 'Green Goblin', hp: 20))
+        @current_battle.spawn_mob(Mob.create(name: 'Green Goblin', hp: 20))
 
         # create_announcement(:battle_started)
         "A battle has started"

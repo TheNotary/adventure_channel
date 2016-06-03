@@ -2,7 +2,7 @@ require 'cinch'
 require 'figaro'
 require 'redis'
 require 'ohm'
-require 'ohm/contrib'
+# require 'ohm/contrib'
 require 'json'
 
 require "adventure_channel/adventure_game"
@@ -17,10 +17,6 @@ module AdventureChannel
     Ohm.redis = Redic.new("redis://#{ENV['redis_host']}:#{ENV['redis_port']}")
     populate_database
 
-    # @redis = Redis.new({
-    #   host: ENV['redis_host'],
-    #   port: ENV['redis_port'],
-    #   db: ENV['redis_db_id']})
     Ohm.redis
   end
 
@@ -64,8 +60,6 @@ module AdventureChannel
       end
 
 
-
-
       on :message, /^!msg (.+?) (.+)/ do |m, who, text|
         User(who).send text
       end
@@ -86,8 +80,6 @@ module AdventureChannel
         # announce
         m.reply "You fought a mob!"
       end
-
-
 
     end
 

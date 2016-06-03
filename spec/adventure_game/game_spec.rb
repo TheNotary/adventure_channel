@@ -8,7 +8,7 @@ describe AdventureChannel::AdventureGame::Battle do
 
   it "can have mobs spawned into a battle" do
     @battle = Battle.new
-    @battle.spawn_mob(Unit.new(name: "Green Goblin", hp: 10))
+    @battle.spawn_mob(Mob.new(name: "Green Goblin", hp: 10))
 
     expect(@battle.mobs.count).to eq 1
   end
