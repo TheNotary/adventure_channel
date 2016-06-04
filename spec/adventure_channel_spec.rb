@@ -50,9 +50,12 @@ describe AdventureChannel do
     expect($MessagesChannel[0]).to eq("[#{@irc_admin.nick}] dmgs goblin for 1pt")
     expect($MessagesChannel[1]).to eq(">> The Green Goblin is slain! <<")
 
+    # Can gain exp from killing a mob
+    # wait_for_messages_pm(1)
+    # expect($MessagesPM.last).to eq("you earned 2xp")
 
 
-    #
+
 
   end
 end

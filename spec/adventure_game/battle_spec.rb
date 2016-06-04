@@ -11,4 +11,9 @@ describe AdventureChannel::AdventureGame::Game do
     $Game.start_battle
     expect($Game.status).to eq :in_battle
   end
+
+  it "can add partisipants to the battle when they perform actions" do
+    # $Game = Game.new
+
+  end
 end

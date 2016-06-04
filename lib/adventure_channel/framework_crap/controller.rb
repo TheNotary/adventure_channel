@@ -38,6 +38,9 @@ module AdventureChannel
 
       # announce if mob dies
       if mob.hp <= 0
+        # Grant EXP to all combatants
+        
+
         mob.delete
         m.reply ">> The #{mob.name} is slain! <<"
       end
