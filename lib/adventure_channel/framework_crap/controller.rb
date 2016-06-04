@@ -22,10 +22,24 @@ module AdventureChannel
     end
 
     def respond_to_fight(m)
-      # get mob
+      battle = $Game.current_battle
+      # get a mob
+      mob = battle.mobs.first
+
+      # lookup users dmg rating
+      user_dmg_rating = 1
+
       # apply_attack to mob's HP
-      # announce
+      mob.hp -= user_dmg_rating
+      mob.save
+
       m.reply "#{m.user.nick} dmgs goblin for 1pt"
+
+      # announce if mob dies
+      if mob.hp <= 0
+        mob.delete
+        m.reply ">> The #{mob.name} is slain! <<"
+      end
     end
 
     def respond_to_help(m)

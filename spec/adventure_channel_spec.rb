@@ -26,16 +26,20 @@ describe AdventureChannel do
     adventure_channel_user.send "!initiate_battle #{ENV['auth_token']}"
     # channel.send "!initiate_battle #{ENV['auth_token']}"
     wait_for_messages_pm(1)
-    latest_message = $MessagesPM.last
-    expect(latest_message).to eq("A battle has started")
+
+    expect($MessagesPM.last).to eq("A battle has started")
 
 
     # Attack the mob
+    mob = $Game.current_battle.mobs.first
+    mob.hp = 1
+    mob.save
     resetMessageBuffers
     channel.send "!fight"
-    wait_for_messages_channel(1)
-    expect($MessagesChannel[0]).to eq("#{@irc_admin.nick} dmgs goblin for 1pt")
+    wait_for_messages_channel(2)
 
+    expect($MessagesChannel[0]).to eq("#{@irc_admin.nick} dmgs goblin for 1pt")
+    expect($MessagesChannel[1]).to eq(">> The Green Goblin is slain! <<")
   end
 end
 
