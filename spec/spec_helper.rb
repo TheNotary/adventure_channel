@@ -17,6 +17,7 @@ def launch_adventure_channel_bot
   Thread.new { AdventureChannel.launch_bot }
   loop until $adventure_channel_bot
   loop until $adventure_channel_bot.data[:online?]
+  $adventure_channel_bot
 end
 
 
@@ -31,9 +32,13 @@ resetMessageBuffers
 def launch_admin_bot
   test_master_bot = Cinch::Bot.new do
     configure do |c|
-      c.nick = "testc"
-      c.server = "127.0.0.1"
-      c.channels = [ENV['irc_channel']]
+      c.nick =  ENV['test_irc_nick']
+      c.password = ENV['test_irc_password'] unless ENV['test_irc_password'].to_s == ""
+      c.server =  ENV['irc_server']
+      c.port = ENV['irc_port']
+      c.channels = ENV['irc_channel'].split
+      c.server_queue_size = ENV['irc_server_queue_size'].to_i
+      c.messages_per_second = ENV['irc_messages_per_second'].to_f
     end
 
     on :connect do |m|

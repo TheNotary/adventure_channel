@@ -14,10 +14,11 @@ describe AdventureChannel do
   #     otherwise be caused by an IRC message from an external server or thread
   # 3)  check that expected message was recieved by the test bot
   it 'can have a monster attack the channel' do
-    launch_adventure_channel_bot
+    @irc_game = launch_adventure_channel_bot
 
     @irc_admin = launch_admin_bot
     channel = @irc_admin.channels.first
+
 
     adventure_channel_user = get_user_from_name(@irc_admin, ENV['irc_nick'])
 
@@ -46,9 +47,12 @@ describe AdventureChannel do
     channel.send "!fight"
     wait_for_messages_channel(2)
 
-    expect($MessagesChannel[0]).to eq("#{@irc_admin.nick} dmgs goblin for 1pt")
+    expect($MessagesChannel[0]).to eq("[#{@irc_admin.nick}] dmgs goblin for 1pt")
     expect($MessagesChannel[1]).to eq(">> The Green Goblin is slain! <<")
 
+
+
+    #
 
   end
 end

@@ -3,8 +3,8 @@
 ######################
 
 redis_host: "127.0.0.1"
-redis_port: 6379
-redis_db_id: 1
+redis_port: "6379"
+redis_db_id: "1"
 
 
 ################
@@ -14,5 +14,24 @@ redis_db_id: 1
 irc_nick: "AdvChan"
 # irc_server:   "irc.esper.net"
 irc_server:   "127.0.0.1"
+irc_port: "6667"
 irc_channel:  "#adventure_channel"
-auth_token: "meow"
+
+# Play with these settings if you're getting banned for flooding
+irc_server_queue_size: '6'
+irc_messages_per_second: '2'
+
+# The sytax for the password field when connecting through ZNC is nick/server_alias:password
+# if you want to connect without ZNC your pass will likely look totally different
+irc_password: "AdvChan/testserver:pass_for_znc"
+admin_nicks: "TheNotary testc"
+auth_token: "thisissecret"
+
+
+####################
+#   Test Settings  #
+####################
+
+test_irc_nick: "testc"
+test_irc_password: "testc/testserver:pass_for_znc"
+

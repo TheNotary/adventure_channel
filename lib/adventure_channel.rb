@@ -52,8 +52,12 @@ module AdventureChannel
     @bot = Cinch::Bot.new do
       configure do |c|
         c.nick = ENV['irc_nick']
+        c.password = ENV['irc_password'] unless ENV['irc_password'].to_s == ""
         c.server = ENV['irc_server']
+        c.port = ENV['irc_port']
         c.channels = ENV['irc_channel'].split
+        c.server_queue_size = ENV['irc_server_queue_size'].to_i
+        c.messages_per_second = ENV['irc_messages_per_second'].to_f
       end
 
       ################

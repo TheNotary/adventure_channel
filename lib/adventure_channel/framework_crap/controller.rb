@@ -34,7 +34,7 @@ module AdventureChannel
       mob.hp -= user_dmg_rating
       mob.save
 
-      m.reply "#{m.user.nick} dmgs goblin for 1pt"
+      m.reply "[#{m.user.nick}] dmgs goblin for 1pt"
 
       # announce if mob dies
       if mob.hp <= 0
