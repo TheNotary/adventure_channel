@@ -3,8 +3,18 @@ module AdventureChannel
     # include AdventureChannel::AdventureGame
 
     def respond_to_inventory(m)
+      resp = $Game.find_or_create_user(m.user.nick).export_inventory
+      m.user.send resp
+    end
+
+    def respond_to_equipment(m)
       resp = $Game.find_or_create_user(m.user.nick).export_equipment
-      resp << "\n\n" << $Game.find_or_create_user(m.user.nick).export_inventory
+      m.user.send resp
+    end
+
+    def respond_to_status(m)
+      resp = "~~ #{m.user.name} ~~\n"
+      resp << $Game.find_or_create_user(m.user.nick).export_status
       m.user.send resp
     end
 
@@ -39,7 +49,7 @@ module AdventureChannel
       # announce if mob dies
       if mob.hp <= 0
         # Grant EXP to all combatants
-        
+
 
         mob.delete
         m.reply ">> The #{mob.name} is slain! <<"

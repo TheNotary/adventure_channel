@@ -71,23 +71,46 @@ module AdventureChannel
       on :message, /^!help/,       {}  { |m| respond_to_help(m) }
       on :message, /^!h(?:\s+|$)/, {}  { |m| respond_to_help(m) }
 
+      #
+      # Player Related
+      #
+
       # inventory
       on :message, /^!inventory/,  {}  { |m| respond_to_inventory(m) }
       on :message, /^!i(?:\s+|$)/, {}  { |m| respond_to_inventory(m) }
+
+      # equipment
+      on :message, /^!equipment/,  {}  { |m| respond_to_equipment(m) }
+      on :message, /^!e(?:\s+|$)/, {}  { |m| respond_to_equipment(m) }
+
+      # status
+      on :message, /^!status/,  {}     { |m| respond_to_status(m) }
+      on :message, /^!s(?:\s+|$)/, {}  { |m| respond_to_status(m) }
 
       # check
       on :message, /^!check/,  {}  { |m| respond_to_check(m) }
       on :message, /^!c(?:\s+|$)/, {}  { |m| respond_to_check(m) }
 
-      # join
-      on :message, /!join/,        {}  { |m| respond_to_join(m) }
+      #
+      # Battle Related
+      #
 
       # initiate_battle
       on :message, /^!initiate_battle/, {} { |m| respond_to_initiate_battle(m) }
 
+      # join
+      on :message, /!join/,        {}  { |m| respond_to_join(m) }
+
       # fight
       on :message, /^!fight/,      {}  { |m| respond_to_fight(m) }
       on :message, /^!f(?:\s+|$)/, {}  { |m| respond_to_fight(m) }
+
+      #
+      # World Related
+      #
+
+      # on :message, /!explore/,        {}  { |m| respond_to_join(m) }
+
 
 
 

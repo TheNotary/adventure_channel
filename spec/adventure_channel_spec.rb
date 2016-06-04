@@ -25,9 +25,9 @@ describe AdventureChannel do
     # Can pull up inventory
     resetMessageBuffers
     adventure_channel_user.send "!inventory"
-    wait_for_messages_pm(21)
+    wait_for_messages_pm(3)
 
-    expect($MessagesPM.first).to eq("~~ testc ~~")
+    expect($MessagesPM.first).to eq("Backpack Contents:")
 
 
     # Can Initiate a battle

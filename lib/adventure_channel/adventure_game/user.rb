@@ -26,7 +26,6 @@ Backpack Contents:
 
       def export_equipment
         <<-EOF
-~~ #{name} ~~
 Equipped:
   Weapons:
     [Bear Arms]
@@ -42,6 +41,14 @@ Equipped:
 
 Dmg: 1
 Def: 5
+        EOF
+      end
+
+      def export_status
+        <<-EOF
+Dmg     1 | Def      5  |  Resistances:   0wh,  20drk, -10cld,   0fr,   0thnd
+Lvl     1 | Nxtlvl  200 |  Exp   91231
+Status Effects:  [Overly Worried About Entropy] [Lost]
         EOF
       end
 
