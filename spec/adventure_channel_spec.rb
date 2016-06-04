@@ -25,17 +25,16 @@ describe AdventureChannel do
     resetMessageBuffers
     adventure_channel_user.send "!initiate_battle #{ENV['auth_token']}"
     # channel.send "!initiate_battle #{ENV['auth_token']}"
-    wait_until_irc_event_happens
+    wait_for_messages_pm(1)
     latest_message = $MessagesPM.last
     expect(latest_message).to eq("A battle has started")
 
 
     # Attack the mob
     resetMessageBuffers
-    # adventure_channel_user.send "!fight"
-    # wait_until_irc_event_happens
-    # latest_message = $Messages[0]
-    # expect($Messages[0]).to eq("You hit the goblin")
+    channel.send "!fight"
+    wait_for_messages_channel(1)
+    expect($MessagesChannel[0]).to eq("#{@irc_admin.nick} dmgs goblin for 1pt")
 
   end
 end

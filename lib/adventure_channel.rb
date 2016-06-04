@@ -64,26 +64,24 @@ module AdventureChannel
       # methods are being fired from here
 
       # help
-      on(:message, /^!help/)       { |m| respond_to_help(m) }
-      on(:message, /^!h(?:\s+|$)/) { |m| respond_to_help(m) }
+      on :message, /^!help/,       {}  { |m| respond_to_help(m) }
+      on :message, /^!h(?:\s+|$)/, {}  { |m| respond_to_help(m) }
 
       # inventory
-      on(:message, /^!inventory/)  { |m| respond_to_inventory(m) }
-      on(:message, /^!i(?:\s+|$)/) { |m| respond_to_inventory(m) }
+      on :message, /^!inventory/,  {}  { |m| respond_to_inventory(m) }
+      on :message, /^!i(?:\s+|$)/, {}  { |m| respond_to_inventory(m) }
 
       # join
-      on :message, /!join/, {}     { |m| respond_to_join(m) }
+      on :message, /!join/,        {}  { |m| respond_to_join(m) }
 
       # initiate_battle
       on :message, /^!initiate_battle/, {} { |m| respond_to_initiate_battle(m) }
 
       # fight
-      on :message, /^[!f|!fight] (.+?)/ do |m, which_mob|
-        # get mob
-        # apply_attack to mob's HP
-        # announce
-        m.reply "You fought a mob!"
-      end
+      on :message, /^!fight/,      {}  { |m| respond_to_fight(m) }
+      on :message, /^!f(?:\s+|$)/, {}  { |m| respond_to_fight(m) }
+
+
 
       # FIXME: example, remove this
       on :message, /^!msg (.+?) (.+)/ do |m, who, text|

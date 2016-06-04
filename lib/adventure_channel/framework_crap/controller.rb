@@ -18,8 +18,14 @@ module AdventureChannel
       end
 
       resp = $Game.start_battle
-
       m.user.send resp
+    end
+
+    def respond_to_fight(m)
+      # get mob
+      # apply_attack to mob's HP
+      # announce
+      m.reply "#{m.user.nick} dmgs goblin for 1pt"
     end
 
     def respond_to_help(m)

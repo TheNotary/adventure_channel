@@ -67,3 +67,11 @@ def wait_until_irc_event_happens
   $EventHappened = nil
   loop until $EventHappened
 end
+
+def wait_for_messages_pm(n_messages)
+  loop until $MessagesPM.count >= n_messages
+end
+
+def wait_for_messages_channel(n_messages)
+  loop until $MessagesChannel.count >= n_messages
+end
