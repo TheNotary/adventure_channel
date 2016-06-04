@@ -4,7 +4,7 @@ module AdventureChannel
 
     class Game
 
-      attr_reader :current_battle, :mobs, :players
+      attr_reader :current_battle, :mobs
 
       def initialize
 
@@ -48,8 +48,14 @@ module AdventureChannel
 
       end
 
-      def users
-
+      # This is leading up to a way to lookup a user from the redis database
+      # FIXME: move me into the User model
+      def find_or_create_user(name)
+        u = User.all.find(name: name).first
+        if u.nil?
+          u = User.spawn_for_new_player(name: name)
+        end
+        return u
       end
 
     end

@@ -3,8 +3,9 @@ module AdventureChannel
     # include AdventureChannel::AdventureGame
 
     def respond_to_inventory(m)
-      resp = $Game.users.find(m.user.nick).inventory
-      m.user.send "~~ #{m.user.nick} ~~"
+      resp = $Game.find_or_create_user(m.user.nick).export_equipment
+      resp << "\n\n" << $Game.find_or_create_user(m.user.nick).export_inventory
+      m.user.send resp
     end
 
     def respond_to_join(m)
@@ -40,6 +41,11 @@ module AdventureChannel
         mob.delete
         m.reply ">> The #{mob.name} is slain! <<"
       end
+    end
+
+    def respond_to_check(m)
+      # lookup a users equpment
+      m.user.send "I can't lookup other player's equpment because no one implemented this function"
     end
 
     def respond_to_help(m)

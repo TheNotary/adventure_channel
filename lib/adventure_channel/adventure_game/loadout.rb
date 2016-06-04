@@ -16,6 +16,7 @@ module AdventureChannel
         s.legs = Item.find(code: "legs-0001").first
         s
       end
+
     end
   end
 end

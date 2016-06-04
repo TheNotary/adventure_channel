@@ -21,7 +21,15 @@ describe AdventureChannel do
 
     adventure_channel_user = get_user_from_name(@irc_admin, ENV['irc_nick'])
 
-    # Initiate a battle
+    # Can pull up inventory
+    resetMessageBuffers
+    adventure_channel_user.send "!inventory"
+    wait_for_messages_pm(21)
+
+    expect($MessagesPM.first).to eq("~~ testc ~~")
+
+
+    # Can Initiate a battle
     resetMessageBuffers
     adventure_channel_user.send "!initiate_battle #{ENV['auth_token']}"
     # channel.send "!initiate_battle #{ENV['auth_token']}"
@@ -30,7 +38,7 @@ describe AdventureChannel do
     expect($MessagesPM.last).to eq("A battle has started")
 
 
-    # Attack the mob
+    # Can Attack a mob
     mob = $Game.current_battle.mobs.first
     mob.hp = 1
     mob.save
@@ -40,6 +48,8 @@ describe AdventureChannel do
 
     expect($MessagesChannel[0]).to eq("#{@irc_admin.nick} dmgs goblin for 1pt")
     expect($MessagesChannel[1]).to eq(">> The Green Goblin is slain! <<")
+
+
   end
 end
 

@@ -14,6 +14,26 @@
       "value": "20",
       "meta": { "slot": ["legs"], "def": "1", "weight": "1", "resistance-cold": "50", "modify-max_hp": "20" }
     },
+    { "code": "shirt-0001",
+      "name": "Defcon T-Shirt",
+      "item_class": "armor",
+      "value": "20",
+      "meta": { "slot": ["shirt"], "def": "1", "weight": "1", "resistance-cold": "-10", "resistance-dark": "20", "modify-max_hp": "20" }
+    },
+    { "code": "shoes-0001",
+      "name": "~Choon~ Shoes",
+      "item_class": "armor",
+      "value": "20",
+      "meta": { "slot": ["shirt"], "def": "1", "weight": "1", "resistance-cold": "-10", "resistance-dark": "20", "modify-max_hp": "20" }
+    },
+    { "code": "hair-0001",
+      "name": "Dragon Ball Z",
+      "item_class": "armor",
+      "value": "20",
+      "meta": { "slot": ["hair"], "def": "1", "weight": "1", "resistance-cold": "-10", "resistance-dark": "20", "modify-max_hp": "20" }
+    },
+
+
 
 
     { "name": "health potion",

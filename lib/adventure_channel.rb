@@ -71,6 +71,10 @@ module AdventureChannel
       on :message, /^!inventory/,  {}  { |m| respond_to_inventory(m) }
       on :message, /^!i(?:\s+|$)/, {}  { |m| respond_to_inventory(m) }
 
+      # check
+      on :message, /^!check/,  {}  { |m| respond_to_check(m) }
+      on :message, /^!c(?:\s+|$)/, {}  { |m| respond_to_check(m) }
+
       # join
       on :message, /!join/,        {}  { |m| respond_to_join(m) }
 
