@@ -55,12 +55,20 @@ describe AdventureChannel do
     expect($MessagesChannel[1]).to eq(">> The Green Goblin is slain <<")
     expect($MessagesChannel[2]).to eq(">>~ The Battle is Won ~<<")
 
-
-    # Can gain exp from killing a mob
-    # wait_for_messages_pm(1)
-    # expect($MessagesPM.last).to eq("you earned 2xp")
+    # You can recieve loot from slain mobs
 
 
+    # Can gain exp from killing a mob and level up
+    wait_for_messages_pm(1)
+    expect($MessagesPM.last).to eq("you earned 2xp")
+
+
+    # You can check your status and see your level
+
+
+    # You can equip items and change the amount of damage you do
+
+    #
 
 
   end
