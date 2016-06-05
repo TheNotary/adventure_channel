@@ -4,6 +4,10 @@ require 'adventure_channel'
 $app_env = 'test'
 include AdventureChannel::AdventureGame
 
+# load the redis database
+AdventureChannel.init_redis
+AdventureChannel.populate_database
+
 def uber_quit
   $adventure_channel_bot.quit if $adventure_channel_bot
   $test_master_bot.quit if $test_master_bot # .data[:online?]

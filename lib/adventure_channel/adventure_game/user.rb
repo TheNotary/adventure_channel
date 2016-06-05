@@ -6,19 +6,14 @@ module AdventureChannel
       battleable
 
       def self.spawn_for_new_player(name: nil)
-        s = self.create(name: name)
+        s = self.create(name: name, exp: 1)
         s.equipment = Loadout.spawn_for_new_player
+        s.save
         s
       end
 
-      # FIXME: refactor with ||
       def self.find_or_create_user(name)
         u = self.all.find(name: name).first || self.spawn_for_new_player(name: name)
-        # if u.nil?
-        #   u = self.spawn_for_new_player(name: name)
-        # end
-        #
-        # u
       end
 
       def furnish_with_default_equipment

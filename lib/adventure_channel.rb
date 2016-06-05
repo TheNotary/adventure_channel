@@ -15,7 +15,6 @@ $app_env = 'production'
 Figaro.application.path = File.expand_path('../../config/application.yml', __FILE__)
 Figaro.load
 
-
 module AdventureChannel
 
   def self.init_redis
@@ -33,7 +32,7 @@ module AdventureChannel
       c = { name: i["name"],
             item_class: i["item_class"],
             value: i["value"],
-            meta: i["meta"]}
+            meta: i["meta"].to_json}
       c = c.merge({code: i["code"]}) if i["code"]
 
       Item.create(c)

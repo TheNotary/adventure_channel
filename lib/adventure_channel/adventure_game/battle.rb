@@ -42,7 +42,7 @@ module AdventureChannel
         @participants << attacker unless @participants.include?(attacker)
 
         # lookup users dmg rating
-        user_dmg_rating = 1
+        user_dmg_rating = attacker.calculate_damage_against(mob)
 
         # apply_attack to mob's HP
         mob.hp -= user_dmg_rating
