@@ -5,6 +5,7 @@ module AdventureChannel
     class Mob < Ohm::Model
       battleable
 
+      attribute :code;         index :code
       attribute :loot
       attribute :moves
 
@@ -15,7 +16,7 @@ module AdventureChannel
       def convert_base_attributes_to_actual
       end
 
-      
+
 
     end
 

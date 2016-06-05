@@ -5,6 +5,7 @@ describe AdventureChannel::AdventureGame::Mob do
     @game = Game.new
     @battle = @game.battle
     @user = User.find_or_create_user("testc")
+    @mob = Mob.find(code: )
     @mob = Mob.create(name: 'Green Goblin', hp: 20)
   end
 
