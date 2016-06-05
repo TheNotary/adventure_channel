@@ -11,6 +11,16 @@ module AdventureChannel
         s
       end
 
+      # FIXME: refactor with ||
+      def self.find_or_create_user(name)
+        u = self.all.find(name: name).first || self.spawn_for_new_player(name: name)
+        # if u.nil?
+        #   u = self.spawn_for_new_player(name: name)
+        # end
+        #
+        # u
+      end
+
       def furnish_with_default_equipment
         # @equipment = { right_hand: "Jaggedly sharp e-waste specimen" } # {left_hand: 'axe', right_hand: 'axe'}
       end

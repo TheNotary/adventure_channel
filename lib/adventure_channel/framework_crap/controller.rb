@@ -3,18 +3,18 @@ module AdventureChannel
     # include AdventureChannel::AdventureGame
 
     def respond_to_inventory(m)
-      resp = $Game.find_or_create_user(m.user.nick).export_inventory
+      resp = User.find_or_create_user(m.user.nick).export_inventory
       m.user.send resp
     end
 
     def respond_to_equipment(m)
-      resp = $Game.find_or_create_user(m.user.nick).export_equipment
+      resp = User.find_or_create_user(m.user.nick).export_equipment
       m.user.send resp
     end
 
     def respond_to_status(m)
       resp = "~~ #{m.user.name} ~~\n"
-      resp << $Game.find_or_create_user(m.user.nick).export_status
+      resp << User.find_or_create_user(m.user.nick).export_status
       m.user.send resp
     end
 
@@ -34,26 +34,22 @@ module AdventureChannel
 
     def respond_to_fight(m)
       battle = $Game.current_battle
-      # get a mob
-      mob = battle.mobs.first
 
-      # lookup users dmg rating
-      user_dmg_rating = 1
+      # get user
+      irc_user = m.user
+      attacker = User.find_or_create_user(irc_user.nick)
 
-      # apply_attack to mob's HP
-      mob.hp -= user_dmg_rating
-      mob.save
+      responses = battle.fight(attacker: attacker)
 
-      m.reply "[#{m.user.nick}] dmgs goblin for 1pt"
+      m.reply responses[:fight_statistic].join("\n")
+      m.user.send response[:effects_for_attacker].join("\n")
+
+      # TODO: this should get implemented in the future
+      # atm, humans can only fight bots, not other humans..... hmmm.....
+      # so we won't reply to a bot
+      # m.reply response[:effects_for_defender].join("\n")
 
       # announce if mob dies
-      if mob.hp <= 0
-        # Grant EXP to all combatants
-
-
-        mob.delete
-        m.reply ">> The #{mob.name} is slain! <<"
-      end
     end
 
     def respond_to_check(m)

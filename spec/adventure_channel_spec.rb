@@ -27,6 +27,9 @@ describe AdventureChannel do
     adventure_channel_user.send "!inventory"
     wait_for_messages_pm(3)
 
+    # TODO:  Figure out why this test sometiems fails...
+    binding.pry if $MessagesPM.first == "  > Laser"
+
     expect($MessagesPM.first).to eq("Backpack Contents:")
 
 
@@ -45,10 +48,13 @@ describe AdventureChannel do
     mob.save
     resetMessageBuffers
     channel.send "!fight"
-    wait_for_messages_channel(2)
 
-    expect($MessagesChannel[0]).to eq("[#{@irc_admin.nick}] dmgs goblin for 1pt")
-    expect($MessagesChannel[1]).to eq(">> The Green Goblin is slain! <<")
+    wait_for_messages_channel(3)
+
+    expect($MessagesChannel[0]).to eq("[#{@irc_admin.nick}] dmgs the Green Goblin for 1pt")
+    expect($MessagesChannel[1]).to eq(">> The Green Goblin is slain <<")
+    expect($MessagesChannel[2]).to eq(">>~ The Battle is Won ~<<")
+
 
     # Can gain exp from killing a mob
     # wait_for_messages_pm(1)

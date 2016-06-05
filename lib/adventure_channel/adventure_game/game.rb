@@ -18,6 +18,7 @@ module AdventureChannel
         end
       end
 
+      # FIXME: move to Battle class
       def start_battle
         return "A battle is already in progress" if @current_battle
 
@@ -31,9 +32,6 @@ module AdventureChannel
 
       end
 
-      def add_player_battle(player)
-
-      end
 
       # This method communicates to users through the distribution system
       # (http/ ws/ irc message) that something has happened
@@ -48,15 +46,7 @@ module AdventureChannel
 
       end
 
-      # This is leading up to a way to lookup a user from the redis database
-      # FIXME: move me into the User model
-      def find_or_create_user(name)
-        u = User.all.find(name: name).first
-        if u.nil?
-          u = User.spawn_for_new_player(name: name)
-        end
-        return u
-      end
+
 
     end
 
