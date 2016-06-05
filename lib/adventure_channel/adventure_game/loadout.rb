@@ -27,7 +27,7 @@ module AdventureChannel
       end
 
       def pieces
-        [:head, :right_hand, :left_hand, :body, :legs, :feet, :wrist, :neck]
+        [:right_hand, :left_hand, :head, :body, :legs, :feet, :wrist, :neck]
       end
 
     end

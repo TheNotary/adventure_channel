@@ -6,7 +6,10 @@ module AdventureChannel
       battleable
 
       def self.spawn_for_new_player(name: nil)
-        s = self.create(name: name, exp: 1)
+        s = self.create(name: name, max_hp: 10, hp: 10, max_mp: 10, mp: 10,
+          stamina: 1, agility: 1, intelligence: 1, spirit: 1, defense_base: 1,
+          attack_base: 1, magic_defense_base: 1, strength: 1, exp: 1)
+
         s.equipment = Loadout.spawn_for_new_player
         s.save
         s
