@@ -13,7 +13,7 @@ describe AdventureChannel::AdventureGame::Game do
   describe "battle stuff" do
     before :each do
       @game.start_battle
-      @battle = @game.current_battle
+      @battle = @game.battle
     end
 
     it "can enter into a battle" do

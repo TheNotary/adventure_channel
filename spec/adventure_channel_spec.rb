@@ -43,7 +43,7 @@ describe AdventureChannel do
 
 
     # Can Attack a mob
-    mob = $Game.current_battle.mobs.first
+    mob = $Game.battle.mobs.first
     mob.hp = 1
     mob.save
     resetMessageBuffers

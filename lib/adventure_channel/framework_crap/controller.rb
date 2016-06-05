@@ -33,7 +33,7 @@ module AdventureChannel
     end
 
     def respond_to_fight(m)
-      battle = $Game.current_battle
+      battle = $Game.battle
 
       # get user
       irc_user = m.user

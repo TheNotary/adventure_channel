@@ -4,14 +4,14 @@ module AdventureChannel
 
     class Game
 
-      attr_reader :current_battle, :mobs
+      attr_reader :battle, :mobs
 
       def initialize
 
       end
 
       def status
-        if @current_battle
+        if @battle
           :in_battle
         else
           :idle
@@ -20,10 +20,10 @@ module AdventureChannel
 
       # FIXME: move to Battle class
       def start_battle
-        return "A battle is already in progress" if @current_battle
+        return "A battle is already in progress" if @battle
 
-        @current_battle = Battle.new
-        @current_battle.spawn_mob(Mob.create(name: 'Green Goblin', hp: 20))
+        @battle = Battle.new
+        @battle.spawn_mob(Mob.create(name: 'Green Goblin', hp: 20))
 
         "A battle has started"
       end
