@@ -18,6 +18,11 @@ module AdventureChannel
       m.user.send resp
     end
 
+    def respond_to_check(m)
+      # lookup another user's equpment
+      m.user.send "I can't lookup other player's equpment because no one implemented this function"
+    end
+
     def respond_to_join(m)
     end
 
@@ -28,7 +33,7 @@ module AdventureChannel
         m.user.send "Fatal:  Authorization denied" && return
       end
 
-      resp = $Game.start_battle
+      resp = $Game.battle.start
       m.user.send resp
     end
 
@@ -52,10 +57,6 @@ module AdventureChannel
       # announce if mob dies
     end
 
-    def respond_to_check(m)
-      # lookup a users equpment
-      m.user.send "I can't lookup other player's equpment because no one implemented this function"
-    end
 
     def respond_to_help(m)
       m.user.send "This is a fun group based adventure game where monsters show up and you fight them and have wonderful adventures"

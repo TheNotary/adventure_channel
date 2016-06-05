@@ -5,8 +5,8 @@ module AdventureChannel
     class Battle
       attr_reader :mobs, :participants, :status
 
-      def initialize(mobs: nil)
-        @mobs = mobs || []
+      def initialize
+        @mobs = []
         @participants = []
         @status = :idle
       end
@@ -14,6 +14,22 @@ module AdventureChannel
       def spawn_mob(mob)
         @mobs << mob
         self
+      end
+
+
+      def start(mobs: nil)
+        return "A battle is already in progress" if @status != :idle
+
+        if mobs.nil?
+          mobs = []
+          spawn_mob(Mob.create(name: 'Green Goblin', hp: 20))
+        else
+          @mobs = mobs unless mobs.nil?
+        end
+
+        @status = :in_battle
+
+        "A battle has started"
       end
 
 

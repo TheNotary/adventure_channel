@@ -7,26 +7,15 @@ module AdventureChannel
       attr_reader :battle, :mobs
 
       def initialize
-
+        @battle = Battle.new
       end
 
       def status
-        if @battle
-          :in_battle
-        else
-          :idle
-        end
+        s = @battle.status
+        return "in dungeon or some town???".to_sym if s == :idle
+        return s
       end
 
-      # FIXME: move to Battle class
-      def start_battle
-        return "A battle is already in progress" if @battle
-
-        @battle = Battle.new
-        @battle.spawn_mob(Mob.create(name: 'Green Goblin', hp: 20))
-
-        "A battle has started"
-      end
 
       def inventory_for(player)
 

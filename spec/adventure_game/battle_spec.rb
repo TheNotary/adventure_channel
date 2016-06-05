@@ -1,23 +1,23 @@
 require 'spec_helper'
 
-describe AdventureChannel::AdventureGame::Game do
+describe AdventureChannel::AdventureGame::Battle do
   before :each do
     @game = Game.new
+    @battle = @game.battle
     @user = User.find_or_create_user("testc")
   end
 
   it "can be instantiated" do
-    expect(@game.status).to eq :idle
+    expect(@battle.status).to eq :idle
   end
 
   describe "battle stuff" do
     before :each do
-      @game.start_battle
-      @battle = @game.battle
+      @game.battle.start
     end
 
     it "can enter into a battle" do
-      expect(@game.status).to eq :in_battle
+      expect(@battle.status).to eq :in_battle
     end
 
     it "can start the battle with a default mob" do
@@ -28,7 +28,6 @@ describe AdventureChannel::AdventureGame::Game do
       @battle.fight(attacker: @user)
 
       expect(@battle.participants.count).to eq(1)
-      binding.pry
     end
   end
 end

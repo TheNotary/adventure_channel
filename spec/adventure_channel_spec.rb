@@ -28,7 +28,7 @@ describe AdventureChannel do
     wait_for_messages_pm(3)
 
     # TODO:  Figure out why this test sometiems fails...
-    binding.pry if $MessagesPM.first == "  > Laser"
+    binding.pry if $MessagesPM.first != "Backpack Contents:"
 
     expect($MessagesPM.first).to eq("Backpack Contents:")
 
@@ -42,7 +42,7 @@ describe AdventureChannel do
     expect($MessagesPM.last).to eq("A battle has started")
 
 
-    # Can Attack a mob
+    # Can Attack a mob and win a battle
     mob = $Game.battle.mobs.first
     mob.hp = 1
     mob.save
