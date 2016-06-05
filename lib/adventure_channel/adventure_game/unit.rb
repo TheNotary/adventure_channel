@@ -26,10 +26,10 @@ def battleable
   attribute :equipment_id
   reference :equipment, :Loadout
 
-  def calculate_damage_against(defneder)
-    # dmg = user
 
-    binding.pry
+  def calculate_damage_against(defender)
+    # dmg = user
+    dmg = attack - defense
   end
 
   def attack
@@ -88,9 +88,13 @@ def battleable
   alias eva evasion
 
   def magic_attack
-    '%2s' % 0
+    0
   end
   alias mgk_atk magic_attack
+
+  def mgk_atk_p
+    '%2s' % magic_attack
+  end
 
   def magic_defense
     '%2s' % 0
@@ -108,14 +112,17 @@ def battleable
 
   # weapon damage
   def wpn_dmg
-    '%3s' % 1
+    1
   end
+  def wpn_dmg_p; '%3s' % wpn_dmg; end
+
 
   def level
     # alternative equation:  int((1.0282*(level^3))+(0.02*(level^2))+(8.09*level)-8.2)  ... this should be married to exp granted by mobs too of course
     earliness = 0 # this could be randomized for the player and based off of a level calculation
-    '%3s' % ( 0.5 * Math.sqrt(exp+earliness) ).ceil
+    ( 0.5 * Math.sqrt(exp+earliness) ).ceil
   end
+  def level_p; '%3s' % level; end
 
   def resist_cold
     '%4s' % (sum_property_of_items("resist_cold"))
@@ -148,11 +155,12 @@ def battleable
   alias r_psn resist_poison
 
 
+  # this should reallly get it's own view... maybe...
   def print_stats
     <<-EOF
-Dmg   #{wpn_dmg} | Def       #{defense} |  str  #{strength},   str  #{strength},   sta  #{stamina},   agi  #{agility},   int  #{intelligence},   spi  #{spirit}
-MgkAtk #{mgk_atk} | MgkDef   #{mgk_def} | Atk #{atk} | Precision #{pre} | Eva #{eva} | MgkEva #{mgk_eva}
-Lvl   #{level} | Nxtlvl  200 | Exp #{'%7s' % exp} | Resistances:#{r_wht}wht,#{r_drk}drk,#{r_cld}cld,#{r_fire}fire,#{r_thnd}thnd,#{r_psn}psn
+Dmg   #{wpn_dmg_p} | Def       #{defense} |  str  #{strength},   str  #{strength},   sta  #{stamina},   agi  #{agility},   int  #{intelligence},   spi  #{spirit}
+MgkAtk #{mgk_atk_p} | MgkDef   #{mgk_def} | Atk #{atk} | Precision #{pre} | Eva #{eva} | MgkEva #{mgk_eva}
+Lvl   #{level_p} | Nxtlvl  200 | Exp #{'%7s' % exp} | Resistances:#{r_wht}wht,#{r_drk}drk,#{r_cld}cld,#{r_fire}fire,#{r_thnd}thnd,#{r_psn}psn
     EOF
   end
 

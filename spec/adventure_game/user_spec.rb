@@ -21,7 +21,7 @@ describe AdventureChannel::AdventureGame::User do
     end
 
     it "should know its overal defense" do
-      expect(@user.defense).to eq 1
+      expect(@user.defense).to eq 2
     end
 
     it "should know its attack" do
@@ -40,9 +40,18 @@ Lvl     1 | Nxtlvl  200 | Exp       1 | Resistances:   0wht,   0drk,  50cld,   0
   end
 
 
+  describe "battle mechanics" do
+
+    it "can account for an attacker missing target"
+
+    it "can perform crits"
+
+
+  end
+
+
   it "can calculate damage against a mob" do
-    dmg = @user.calculate_damage_against(@mob)
-    expect(dmg).to eq 1
+    expect(@user.calculate_damage_against(@mob)).to eq 2
   end
 
 
