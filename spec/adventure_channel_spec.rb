@@ -41,6 +41,12 @@ describe AdventureChannel do
 
     expect($MessagesPM.last).to eq("A battle has started")
 
+    # TODO:
+    # A mob can beginning stealing from the channel's treasury
+    binding.pry
+
+    # TODO:
+    # A mob can attack a player
 
     # Can Attack a mob and win a battle
     mob = $Game.battle.mobs.first
@@ -50,6 +56,8 @@ describe AdventureChannel do
     channel.send "!fight"
 
     wait_for_messages_channel(3)
+
+    
 
     expect($MessagesChannel[0]).to eq("[#{@irc_admin.nick}] dmgs the Green Goblin for 1pt")
     expect($MessagesChannel[1]).to eq(">> The Green Goblin is slain <<")
@@ -62,7 +70,7 @@ describe AdventureChannel do
     wait_for_messages_pm(1)
     expect($MessagesPM.last).to eq("you earned 2xp")
 
-
+    # TODO:
     # You can check your status and see your level
 
 

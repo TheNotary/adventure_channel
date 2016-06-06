@@ -169,9 +169,34 @@ Opens the market sub menu where you can sell loot and buy potions and spells.
 
 ### Testing
 
-To run all the tests, you need to at least run an IRC server locally and have config/application.yml configured correctly to connect to it.  Theoretically you could use a remote IRC server, but that's less flexible.  Additionally, as bazz showed me, you can substantially decrese the connection times by also running a ZNC server locally which kind of sits there maintaining a connection to an IRC server so you don't need to waste time re-handshaking with that ancient protocol.  Once that's done you're good, run `rake` like any other piece of professional open source software.  
+You should use test driven development to make progress on this.  Firstly, that means you don't manually boot up the app to check how a change you made to the code effects its outputs, rather you run `rake` and check how your change effects the outputs.  You'll probably need to write your own test or expand one of the existing pending tests.  
+
+e.g. the below pending test...
+
+```
+it "should do a thing that was once considered but no one had to to implement"
+```
+
+Might become...
+
+```
+it "should do a thing that was once considered but no one had to to implement" do
+  # This kind of puts a break point in your code so you can try running commands
+  # It's indispensable in the ruby world and it along with unit tests is the
+  # reason we don't bother with code debuggers
+  binding.pry
+  expect($Game.thing_that_was_considered).to eq :it_returned_this_expected_symbol
+end
+```
+
+
+When tests fail, at the bottom of the screen, it prints the command to run specifically that test.  Try not to make changes in other parts of the code that cause other tests to break unless it's clear that it's a good idea (the other tests seemed like stubs) or you've created an issue to bring up some insufficiencies of what may have actually been intended design (it may well have been an oversight).  
+
+
+To run all the tests, you need to at least run an IRC server locally and have config/application.yml configured correctly to connect to it.  Theoretically you could use a remote IRC server, but that's less flexible.  Additionally, as bazz showed me, you can substantially decrease the connection times by also running a ZNC server locally which kind of sits there maintaining a connection to an IRC server so you don't need to waste time re-handshaking with that ancient protocol.  Once that's done you're good, run `rake` like any other piece of professional open source software.  
 
 You can use bin/console to play around with things too.  But ideally you'll just create a new test for the feature you're working on.  
+
 
 ## License
 

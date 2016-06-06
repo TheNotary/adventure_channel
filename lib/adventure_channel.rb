@@ -55,8 +55,7 @@ module AdventureChannel
             base_attributes: i["base_attributes"].to_json
       }
 
-      # Anything missing from base_attributes will be assumed to be a '1'
-
+      # Anything missing from base_attributes SHOULD be assumed to be a '1'
       Mob.create(c)
     end
 
@@ -116,8 +115,18 @@ module AdventureChannel
       # Battle Related
       #
 
-      # initiate_battle
+      # This starts a new battle assuming one isn't in progress
+      # [system] initiate_battle
       on :message, /^!initiate_battle/, {} { |m| respond_to_initiate_battle(m) }
+
+      # This makes the next up mob attack
+      # [system] queue_next_mob_action
+      on :message, /^!queue_next_mob_action/, {} { |m| respond_to_queue_next_mob_action(m) }
+
+      # This method makes it so that players can take their next turns
+      # [system] queue_adventurers_turn_tick
+      on :message, /^!queue_adventurers_turn_tick/, {} { |m| respond_to_queue_adventurers_turn_tick(m) }
+
 
       # join
       on :message, /!join/,        {}  { |m| respond_to_join(m) }

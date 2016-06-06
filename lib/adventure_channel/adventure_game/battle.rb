@@ -11,7 +11,11 @@ module AdventureChannel
         @status = :idle
       end
 
-      def spawn_mob(mob)
+      # TODO: refactor this to be Mob.spawn_new
+      def spawn_mob(params)
+        mob = Mob.find(code: params[:code]).first
+        mob.set_attributes!(params)
+
         @mobs << mob
         self
       end
@@ -22,7 +26,7 @@ module AdventureChannel
 
         if mobs.nil?
           mobs = []
-          spawn_mob(Mob.create(name: 'Green Goblin', hp: 20))
+          spawn_mob(code: 'mob-0001', hp: 20)
         else
           @mobs = mobs unless mobs.nil?
         end

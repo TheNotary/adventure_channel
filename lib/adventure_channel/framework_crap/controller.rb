@@ -37,6 +37,21 @@ module AdventureChannel
       m.user.send resp
     end
 
+    def respond_to_queue_next_mob_action(m)
+      if authorization_denied?(m)
+        m.user.send "Fatal:  Authorization denied" && return
+      end
+
+      # TODO:
+      # 1) figure out which mob goes next (and how many times players can use
+      #    abilities per tick)
+      # 2) Figure out which unit will be acted upon (support move on fellow mob?
+      #    attack move on enemy players?)
+      # 3) Perform the act on the unit
+      # 4) announce outcome to room
+
+    end
+
     def respond_to_fight(m)
       battle = $Game.battle
 
@@ -53,7 +68,7 @@ module AdventureChannel
       # atm, humans can only fight bots, not other humans..... hmmm.....
       # so we won't reply to a bot
       # m.reply response[:effects_for_defender].join("\n")
-
+      binding.pry
       # announce if mob dies
     end
 
