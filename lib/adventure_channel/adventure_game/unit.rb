@@ -3,6 +3,8 @@
 
 def battleable
   attribute :name;       index :name
+
+  # battlestatly...
   attribute :exp, lambda { |x| x.to_i }
   attribute :attribues_for_level, lambda { |x| x.to_i }
   attribute :hp, lambda { |x| x.to_i }
@@ -16,13 +18,14 @@ def battleable
   attribute :intelligence, lambda { |x| x.to_i }
   attribute :spirit, lambda { |x| x.to_i }
 
-
   attribute :defense_base, lambda { |x| x.to_i }
   attribute :attack_base, lambda { |x| x.to_i }
   attribute :magic_defense_base, lambda { |x| x.to_i }
 
   attribute :special_permenant_modifiers # eg { special_permenant_modifiers: [ "jaunt_quest_completed": [ modify-resist_fire": "10", "modify-title": "Super Cool Dude"] }
   attribute :status_effects
+
+  attribute :abilities
 
 
   list :inventory, :Item
@@ -137,6 +140,7 @@ def battleable
     # sum_of_stats > attribues_for_level + bonus_attributes
   end
 
+  # TODO:  refactor: new file resistable
   def resist_cold
     '%4s' % (sum_property_of_items("resist_cold"))
   end

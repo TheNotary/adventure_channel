@@ -8,8 +8,9 @@ module AdventureChannel
       attribute :code;         index :code
       attribute :loot
 
-      # TODO: rename to :actions
-      attribute :mob_moves
+      # TODO: rename to :attribute_distribution to determine how to divide total
+      # attributes among the mob (which is determined by level, which is
+      # determined by exp)
       attribute :base_attributes
 
       def self.spawn(config)

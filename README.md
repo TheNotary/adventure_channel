@@ -43,7 +43,7 @@ Get status of the adventure:
 #### !j | !join
 
 Type !j to join the battle, this command will likely be deprecated since joining
-the battle can be inferred by performing game actions.  
+the battle can be inferred by performing game acts.  
 
 ```
 ```

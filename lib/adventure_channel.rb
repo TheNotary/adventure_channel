@@ -50,7 +50,7 @@ module AdventureChannel
       c = { code: i["code"],
             name: i["name"],
             loot: i["loot"],
-            mob_moves: i["mob_moves"].to_json,
+            abilities: i["abilities"].to_json,
             special_permenant_modifiers: i["special_permenant_modifiers"].to_json,
             base_attributes: i["base_attributes"].to_json
       }

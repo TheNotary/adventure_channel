@@ -42,7 +42,7 @@ module AdventureChannel
         m.user.send "Fatal:  Authorization denied" && return
       end
 
-      # TODO:
+      # TODO: respond_to_queue_next_mob_action
       # 1) figure out which mob goes next (and how many times players can use
       #    abilities per tick)
       # 2) Figure out which unit will be acted upon (support move on fellow mob?

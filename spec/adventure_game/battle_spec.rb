@@ -24,7 +24,7 @@ describe AdventureChannel::AdventureGame::Battle do
       expect(@battle.mobs.count).to eq 1
     end
 
-    it "can add partisipants to the battle when they perform actions" do
+    it "can add partisipants to the battle when they perform acts" do
       @battle.fight(attacker: @user)
 
       expect(@battle.participants.count).to eq(1)
