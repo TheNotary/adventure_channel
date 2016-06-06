@@ -11,29 +11,46 @@ module AdventureChannel
         @status = :idle
       end
 
-      # TODO: refactor this to be Mob.spawn_new
-      def spawn_mob(params)
-        mob = Mob.find(code: params[:code]).first
-        mob.set_attributes!(params)
-
-        @mobs << mob
+      # Adds a new mob to an in-progress battle
+      #
+      # @param [Array<Mob>] mobs
+      #    Array of mobs to spawn as the battle is initiated.
+      # @see Battle#spawn_new_mob
+      def spawn_new_mob(params)
+        @mobs << Mob.spawn(params)
         self
       end
 
-
+      # Starts a battle.  If no parameters are specified, default values will be
+      # used.
+      #
+      # @param [Array<Hash>] mobs
+      #    Array of mob configurations to spawn as the battle is initiated.  As
+      #    a minimum, your Hash configs must include a `code` key.
+      # @param [Hash] mobs
+      #    To spawn just one mob, instead of passing in a hash, just pass in
+      #    the configs for a single mob.
+      # @see Battle#start
       def start(mobs: nil)
         return "A battle is already in progress" if @status != :idle
 
-        if mobs.nil?
-          mobs = []
-          spawn_mob(code: 'mob-0001', hp: 20)
-        else
-          @mobs = mobs unless mobs.nil?
-        end
+        # assign_mobs_to_battle(mobs)
+        @mobs = assign_mobs_to_battle(mobs)
 
         @status = :in_battle
 
         "A battle has started"
+      end
+
+      def assign_mobs_to_battle(mobs)
+        if mobs.class == Array
+          @mobs = mobs.collect {|params| Mob.spawn(params)}
+        elsif mobs.class == Hash # assume a single mob config was passed in not many in an array
+          mob_config = mobs
+          @mobs = [Mob.spawn(mob_config)]
+        else
+          @mobs = [ Mob.spawn(code: 'mob-0001', hp: 20) ] # default mob
+        end
       end
 
 
