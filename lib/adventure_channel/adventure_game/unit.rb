@@ -4,15 +4,19 @@
 def battleable
   attribute :name;       index :name
   attribute :exp, lambda { |x| x.to_i }
+  attribute :attribues_for_level, lambda { |x| x.to_i }
   attribute :hp, lambda { |x| x.to_i }
   attribute :mp, lambda { |x| x.to_i }
   attribute :max_hp, lambda { |x| x.to_i }
   attribute :max_mp, lambda { |x| x.to_i }
+
   attribute :strength, lambda { |x| x.to_i }
   attribute :stamina, lambda { |x| x.to_i }
   attribute :agility, lambda { |x| x.to_i }
   attribute :intelligence, lambda { |x| x.to_i }
   attribute :spirit, lambda { |x| x.to_i }
+
+
   attribute :defense_base, lambda { |x| x.to_i }
   attribute :attack_base, lambda { |x| x.to_i }
   attribute :magic_defense_base, lambda { |x| x.to_i }
@@ -120,9 +124,18 @@ def battleable
   def level
     # alternative equation:  int((1.0282*(level^3))+(0.02*(level^2))+(8.09*level)-8.2)  ... this should be married to exp granted by mobs too of course
     earliness = 0 # this could be randomized for the player and based off of a level calculation
-    ( 0.5 * Math.sqrt(exp+earliness) ).ceil
+    ( 0.5 * Math.sqrt(exp + earliness) ).ceil
   end
   def level_p; '%3s' % level; end
+
+  def attribues_for_level
+    attributes = 6 + level * 4
+  end
+
+  # TODO: finish this when you test leveling up
+  def can_apply_earned_attribute?
+    # sum_of_stats > attribues_for_level + bonus_attributes
+  end
 
   def resist_cold
     '%4s' % (sum_property_of_items("resist_cold"))

@@ -1,0 +1,11 @@
+{
+  "beastiary": [
+    { "code": "mob-0001",
+      "name": "Green Goblin",
+      "loot": [{ "potion": "100" }],
+      "mob_moves": [ { "goblin_punch": { "dmg": "1", "odds": "100" } } ],
+      "base_attributes": [],
+      "special_permenant_modifiers": []
+    }
+  ]
+}

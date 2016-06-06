@@ -26,8 +26,12 @@ module AdventureChannel
 
   # upon boot, all items will get loaded into redis (yes... again)
   def self.populate_database
-    items = JSON.parse(File.read(File.expand_path('../../config/items.json', __FILE__)))["items"]
+    populate_items
+    populate_monsters
+  end
 
+  def self.populate_items
+    items = JSON.parse(File.read(File.expand_path('../../config/items.json', __FILE__)))["items"]
     items.each do |i|
       c = { name: i["name"],
             item_class: i["item_class"],
@@ -36,6 +40,24 @@ module AdventureChannel
       c = c.merge({code: i["code"]}) if i["code"]
 
       Item.create(c)
+    end
+  end
+
+  def self.populate_monsters
+    mobs = JSON.parse(File.read(File.expand_path('../../config/beastiary.json', __FILE__)))["beastiary"]
+
+    mobs.each do |i|
+      c = { code: i["code"],
+            name: i["name"],
+            loot: i["loot"],
+            mob_moves: i["mob_moves"].to_json,
+            special_permenant_modifiers: i["special_permenant_modifiers"].to_json,
+            base_attributes: i["base_attributes"].to_json
+      }
+
+      # Anything missing from base_attributes will be assumed to be a '1'
+
+      Mob.create(c)
     end
 
   end

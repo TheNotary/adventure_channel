@@ -28,17 +28,13 @@ describe "Redis" do
   # FIXME: This test broke when I started using 'find' to get Items instead of
   # create.  Need feedback
   it "can have associations" do
-    pending "fixme"
     user = @user
 
     item = Item.find(:code => "wep-0001").first
 
-    # user.inventory.push item
     user.inventory.push item
-    # binding.pry
 
     user = User.find(name: @user.name).first
-
 
     expect(user.inventory.count).to eq(1)
     expect(user.inventory.first).to eq(item)

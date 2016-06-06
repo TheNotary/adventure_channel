@@ -7,7 +7,9 @@ module AdventureChannel
 
       attribute :code;         index :code
       attribute :loot
-      attribute :moves
+      attribute :mob_moves
+      attribute :base_attributes
+
 
       # TODO: base_attributes are read from the beastiary.json file,
       # and so these values need to be set as the mob's actual values and
