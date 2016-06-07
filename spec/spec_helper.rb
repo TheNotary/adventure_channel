@@ -1,8 +1,11 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+$app_env = 'test'
 require 'pry'
 require 'adventure_channel'
-$app_env = 'test'
+require 'environment_helper'
 include AdventureChannel::AdventureGame
+
+check_test_environment!
 
 # load the redis database
 AdventureChannel.init_redis

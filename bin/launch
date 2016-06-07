@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+# This script can be used to launch the bot into an IRC server as defined in
+# config/application.yml
+
+require "bundler/setup"
+require "adventure_channel"
+include AdventureChannel::AdventureGame
+
+require 'pry'
+
+AdventureChannel.launch_bot

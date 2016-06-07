@@ -1,175 +1,60 @@
 # AdventureChannel
 
-AdventureChannel hosts an IRC bot that allows you to play a game.  
+AdventureChannel is an IRC bot that entertains social channels with a turn-based RPG adventure game.  
 
-## Installation
+## How the Game Works
 
-Either push this repo to a PaaS like dokku/ heroku... or...
+Check out the [gameplay manual](docs/GAMEPLAY_MANUAL.md)
 
-Install it as a CLI Gem:
+## Contribution Quick Start
 
-    $ gem install adventure_channel
+1. Fork this repo to your github account
+1. Chat with me or look through the `/spec/adventure_game` files to look for tests that haven't been written that look fun, or come up with a new feature that's inline with [the project's philosophy](docs/PROJECT_PHILOSOPHY.md)
+1. Make sure no one else has claimed that by scanning the issues
+1. do `git checkout -b name-of-feature`
+1. Commence hacking
 
-## Usage
 
-To play, periodically, some group of monsters will attack the channel.  
-It will be up to members of that channel to fight off the monsters.
-Use teamwork and be nice to each other.
+## Project Philosophy
 
-When a monster shows up, you must fight it off.  
+ See the project's [philosophy](docs/PROJECT_PHILOSOPHY.md) manual to get a picture of what direction this project is headed.
 
-```
-~ A monster has appeared ~
-> lvl 2 green goblin
-```
+## The Contribution Process
 
-### Gameplay Commands
+Basically, to contribute, you can totally just wing it ;)  
 
-#### !s | !stat
-
-Get status of the adventure:
-
-```
-~ The party is in Dungeon: The Disaster Den of Dart ~
-~
-~ A [lvl 2 green goblin {gg1}] appeared 2 minutes ago ~
-> No one has helped fend it off yet!
-> It's stealing things from the channel coffer.
-```
-
-
-### Battle Commands
-
-#### !j | !join
-
-Type !j to join the battle, this command will likely be deprecated since joining
-the battle can be inferred by performing game acts.  
-
-```
-```
-
-#### !r | !run
-
-Leaves the battle (you coward!).  
-
-#### !f | !fight
-
-Use your equipped weapons to fight the assailing monster.  You can specify which monster you'd like to target if you'd like.  
-
-```
-  !fight gg1
-```
-
-#### !s | !specail_ability
-
-Use the special ability of your equipped weapon if it has one.  
-
-#### !m | !magic
-
-Attack a mob with magic.  
-
-```
-  !magic fire
-```
-
-#### !spells
-
-List your magic spells.  
-
-#### !i | !inventory
-
-See your inventory and currently equipped items.  
-
-```
-!inventory
-~~ Nick Name ~~
-Equipped:
-  Weapons:
-    [Bear Arms]
-    [Empty]
-  Shirt:
-    [Defcon T-Shirt]
-  Pants:
-    [No Pants Bro, they'z lost or some shit]
-  Shoes:
-    [Cool Dance Shoes]
-  Hair Style:
-    [Dragon Ball Z]
-
-Backpack Contents:
-  > Laptop rolling something linux based
-  > Laser
-```
-
-#### !e | !equip
-
-Equips an item.
-
-```
-!equip Laser
-* Nickname has equipped his Laser *
-```
-
-
-## Exploring Commands
-
-#### !pick_lock
-
-Use your lock picking skill to see if you can get past the door.
-
-
-#### !look
-
-Recieve a message about what the current part of the dungeon looks like.  
-
-
-#### !go [north|south|east|west]
-
-Travel through the dungeon to get to rooms and stuff.  
-
-
-#### !explore
-
-Explore to a new area of the current dungeon, marking it on the map.  
-
-
-#### !map
-
-Print the map of the current zone
-
-
-#### !worldmap
-
-Print the world map
-
-
-#### !travel_town
-
-Vote for the next location to travel to next after the next travel interval occurs...
-Everyone 30 minutes, the channel must leave the dungeon its currently exploring along the quest line and go back to town to replenish???
-
-
-
-
-## Commerce Commands
-
-#### !t | !trade
-
-Trade items with friends.  Be nice!
-
-#### !market
-
-Opens the market sub menu where you can sell loot and buy potions and spells.  
-
-
-
-
+However if you're a perfectionist and want to make sure you're doing things in the 100% smoothest possible way, take a peak at [The Contribution Process](docs/CONTRIBUTION_PROCESS.md).  
 
 ## Development
 
-### Testing
+This app is being developed using a loose TDD methodology.  Not only must all PRs come in with, at a minimum, requests for help writing a test to test a feature or unit of code, but actually testing the app conventionally simply isn't feasible because it's too time consuming to manually set up the game state by running commands in IRC.  If you've never done TDD, we might wanna touch base before you get started.
 
-You should use test driven development to make progress on this.  Firstly, that means you don't manually boot up the app to check how a change you made to the code effects its outputs, rather you run `rake` and check how your change effects the outputs.  You'll probably need to write your own test or expand one of the existing pending tests.  
+### Basic Dev Environment
+
+#### Ruby Stuff
+To setup your basic Ruby development environment, you'll just need to...
+
+1. Install Ruby (I recommend installing ruby with [RVM](https://rvm.io/rvm/install) )
+1. Make sure ruby came with the bundler gem automatically `gem install bundler`
+1. `cd` into the root of this project and install it's dependencies with `bunder install`
+1. Check the configuration file at `config/application.yml`
+1. Test that things work by running the test suite `rspec spec/`
+
+
+#### Server Stuff
+Next you'll need to get the application dependencies installed.  
+
+1.  Go over this [Redis Installation Instructinos](http://redis.io/download) page
+1.  (Optional) Install a local IRC server eg `apt-get install ngircd`
+
+
+When the above is all done
+
+
+
+## Testing Advice
+
+Using test driven development when hacking on this app will save lots of time.  In TDD you shouldn't need to manually boot up the app to check how a change you made to the code effects its outputs, rather you run `rake` and check how your change effects the outputs.  You'll most likely need to write your own test or expand existing pending tests to hack on the feature you've taken an interest in.  
 
 e.g. the below pending test...
 
@@ -193,16 +78,17 @@ end
 When tests fail, at the bottom of the screen, it prints the command to run specifically that test.  Try not to make changes in other parts of the code that cause other tests to break unless it's clear that it's a good idea (the other tests seemed like stubs) or you've created an issue to bring up some insufficiencies of what may have actually been intended design (it may well have been an oversight).  
 
 
-To run all the tests, you need to at least run an IRC server locally and have config/application.yml configured correctly to connect to it.  Theoretically you could use a remote IRC server, but that's less flexible.  Additionally, as bazz showed me, you can substantially decrease the connection times by also running a ZNC server locally which kind of sits there maintaining a connection to an IRC server so you don't need to waste time re-handshaking with that ancient protocol.  Once that's done you're good, run `rake` like any other piece of professional open source software.  
+To run all the tests, you need to at least run an IRC server locally and have config/application.yml configured correctly to connect to it.  Theoretically you could use a remote IRC server, but as a rule, tests shouldn't need to use the network expect in very narrow cases where you're testing compliance with a network service.  Additionally, as bazz showed me there's added flexibility in testing when connecting through a ZNC server but that's totally optional.  
 
-You can use bin/console to play around with things too.  But ideally you'll just create a new test for the feature you're working on.  
+You can run `./bin/launch` or `./bin/console` to play around with things too.  But ideally you'll just create a new test for the feature you're working on.  
+
+
+
+## Deploy/ Installation
+
+See [Deployment](docs/DEPLOYMENT.md).
 
 
 ## License
 
 GNU AGPL v3
-
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/adventure_channel.

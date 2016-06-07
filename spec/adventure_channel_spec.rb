@@ -9,11 +9,17 @@ describe AdventureChannel do
     # binding.pry
   end
 
-  # 1)  Launch the bot
-  # 2)  Initiate code for starting a battle and spawning a mob that would
-  #     otherwise be caused by an IRC message from an external server or thread
-  # 3)  check that expected message was recieved by the test bot
+  # 1)  Launch the IRC bot into the irc server specified in application.yml
+  # 2)  Launch a test client/ admin bot into that channle too so it can do messages
+  # 3)  Go through the full set of 'features' all in this one massive test
+  #
+  # Note... this is the most straightforward place to start 'testing' your feature
+  # and get your head thinking about how to make the feature happen, but this
+  # part of the code base will likely be a mess of merge conflicts so try to
+  # bear that in mind as you wait for PRs to be merged.
   it 'can have a monster attack the channel' do
+    return if !$IsIRCServerListening # skip this test if they can't connect to IRC
+
     @irc_game = launch_adventure_channel_bot
 
     @irc_admin = launch_admin_bot
