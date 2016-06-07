@@ -4,7 +4,9 @@
 
 redis_host: "127.0.0.1"
 redis_port: "6379"
-redis_db_id: "1"
+
+# WARNING: Got data in redis?  Choose a free db index so you don't clober your existing db
+redis_db_index: "5"
 
 
 ################
@@ -34,4 +36,3 @@ auth_token: "thisissecret"
 
 test_irc_nick: "testc"
 test_irc_password: "testc/testserver:pass_for_znc"
-

@@ -28,6 +28,8 @@ module AdventureChannel
 
   def self.init_redis
     Ohm.redis = Redic.new("redis://#{ENV['redis_host']}:#{ENV['redis_port']}")
+    Ohm.redis.call("select", ENV['redis_db_index'])
+    
     populate_database
 
     Ohm.redis
