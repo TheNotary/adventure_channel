@@ -17,6 +17,15 @@ Figaro.load
 
 module AdventureChannel
 
+  # This method includes the routing information for the app more or less
+  def self.launch_bot
+    init_redis
+    $Game = AdventureGame::Game.new
+
+    $adventure_channel_bot = @bot = BotRouter.instantiate_bot
+    @bot.start # Blocking call... should be listen
+  end
+
   def self.init_redis
     Ohm.redis = Redic.new("redis://#{ENV['redis_host']}:#{ENV['redis_port']}")
     populate_database
@@ -44,7 +53,9 @@ module AdventureChannel
   end
 
   def self.populate_monsters
-    mobs = JSON.parse(File.read(File.expand_path('../../config/beastiary.json', __FILE__)))["beastiary"]
+    path_to_json_file = File.expand_path('../../config/beastiary.json', __FILE__)
+
+    mobs = JSON.parse(File.read(path_to_json_file))["beastiary"]
 
     mobs.each do |i|
       c = { code: i["code"],
@@ -59,15 +70,6 @@ module AdventureChannel
       Mob.create(c)
     end
 
-  end
-
-  # This method includes the routing information for the app more or less
-  def self.launch_bot
-    init_redis
-    $Game = AdventureGame::Game.new
-
-    $adventure_channel_bot = @bot = BotRouter.instantiate_bot
-    @bot.start # Blocking call... should be listen
   end
 
 end
