@@ -22,5 +22,8 @@ describe AdventureChannel::AdventureGame::Battle do
     expect(@battle.mobs.count).to eq 2
   end
 
+  it "allows an admin to set hackerspace fields like website, mailinglist, address, GPS, etc."
+
+  it "allows players to query hackerspace fields like website, mailinglist, address, GPS, etc."
 
 end
