@@ -1,3 +1,5 @@
+require 'adventure_channel/adventure_game/battle/battleable'
+
 module AdventureChannel
 
   module AdventureGame
