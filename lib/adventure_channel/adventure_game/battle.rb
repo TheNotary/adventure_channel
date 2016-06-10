@@ -32,14 +32,24 @@ module AdventureChannel
       #    the configs for a single mob.
       # @see Battle#start
       def start(mobs: nil)
-        return "A battle is already in progress" if @status != :idle
+        return { invoker_messages: ["A battle is already in progress"] } if @status != :idle
 
         # assign_mobs_to_battle(mobs)
         @mobs = assign_mobs_to_battle(mobs)
 
         @status = :in_battle
 
-        "A battle has started"
+        responses = { invoker_messages: ["A battle has started"],
+                      channel_messages: [battle_start_announcement] }
+      end
+
+      def battle_start_announcement
+        script = (@mobs.count > 1) ? "~ A group of monsters has appeared ~" : "~ A monster has appeared ~"
+        script = [script]
+
+        @mobs.each { |m| script << "> lvl #{m.level} #{m.name}" }
+
+        script.join("\n")
       end
 
       def assign_mobs_to_battle(mobs)

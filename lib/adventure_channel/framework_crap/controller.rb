@@ -33,8 +33,10 @@ module AdventureChannel
         m.user.send "Fatal:  Authorization denied" && return
       end
 
-      resp = $Game.battle.start
-      m.user.send resp
+      responses = $Game.battle.start
+
+      m.bot.channels[0].send responses[:channel_messages].join("\n")
+      m.user.send responses[:invoker_messages].join("\n")
     end
 
     def respond_to_queue_next_mob_action(m)

@@ -30,7 +30,7 @@ describe AdventureChannel do
       wait_for_messages_pm(3)
 
       # TODO:  Make it so tests relating to $MessagesPM don't sometimes fail
-      expect($MessagesPM.first).to eq("Backpack Contents:")
+      expect($MessagesPM).to include("Backpack Contents:")
 
 
       # Can Initiate a battle
@@ -38,8 +38,13 @@ describe AdventureChannel do
       adventure_channel_user.send "!initiate_battle #{ENV['auth_token']}"
       # channel.send "!initiate_battle #{ENV['auth_token']}"
       wait_for_messages_pm(1)
+      wait_for_messages_channel(2)
 
-      expect($MessagesPM.last).to eq("A battle has started")
+      expect($MessagesPM).to include("A battle has started")
+
+      expect($MessagesChannel).to include("~ A monster has appeared ~")
+      expect($MessagesChannel).to include("> lvl 0 Green Goblin")
+
 
       # TODO: Write mob stealing from the channel's treasury
       # A mob can beginning stealing from the channel's treasury
