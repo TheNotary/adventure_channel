@@ -11,6 +11,6 @@ module AdventureChannel
       end
 
     end
-    
+
   end
 end

@@ -30,7 +30,7 @@ describe AdventureChannel::AdventureGame::User do
 
     it "should know its stats" do
       expected_stats = <<-EOF
-Dmg     1 | Def       2 |  str  1,   str  1,   sta  1,   agi  1,   int  1,   spi  1
+Dmg     1 | Def       2 |  str  1,   sta  1,   agi  1,   int  1,   spi  1
 MgkAtk  0 | MgkDef    0 | Atk 4 | Precision  0 | Eva  0 | MgkEva  0
 Lvl     1 | Nxtlvl  200 | Exp       1 | Resistances:   0wht,   0drk,  50cld,   0fire,   0thnd,   0psn
       EOF

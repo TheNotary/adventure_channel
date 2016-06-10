@@ -1,9 +1,13 @@
 require 'adventure_channel/adventure_game/battle/battle_mathematics'
+require 'adventure_channel/adventure_game/battle/stats_printer'
+
+AdventureChannel::AdventureGame::Resistances = [:white, :dark, :cold, :fire, :thunder, :poison]
 
 # inheritance must work through this mixin pattern (call from inheriting
 # classes)
 def battleable
   include AdventureChannel::AdventureGame::BattleMathematics
+  include AdventureChannel::AdventureGame::StatsPrinter
 
   attribute :name;       index :name
 
@@ -45,6 +49,11 @@ def battleable
   # new to ruby.
 
   define_method(:level) { level_calculation }
+
+  AdventureChannel::AdventureGame::StatsPrinter.resistence_definitions # e.g. resist_cold
+
+  # This allows battleable objects to print their resistences stats
+  AdventureChannel::AdventureGame::StatsPrinter.resistances_printer  # e.g. p_cold
 
 
   def calculate_damage_against(defender)
@@ -106,6 +115,7 @@ def battleable
   end
   alias eva evasion
 
+
   def magic_attack
     0
   end
@@ -133,9 +143,7 @@ def battleable
   def wpn_dmg
     1
   end
-  def wpn_dmg_p
-    '%3s' % wpn_dmg
-  end
+
 
 
 
@@ -150,46 +158,6 @@ def battleable
     # sum_of_stats > attribues_for_level + bonus_attributes
   end
 
-  # TODO:  refactor: new file resistable
-  def resist_cold
-    '%4s' % (sum_property_of_items("resist_cold"))
-  end
-  alias r_cld resist_cold
-
-  def resist_fire
-    '%4s' % sum_property_of_items("resist_fire")
-  end
-  alias r_fire resist_fire
-
-  def resist_white
-    '%4s' % sum_property_of_items("resist_white")
-  end
-  alias r_wht resist_white
-
-  def resist_dark
-    '%4s' % sum_property_of_items("resist_dark")
-  end
-  alias r_drk resist_dark
-
-  def resist_thunder
-    '%4s' % sum_property_of_items("resist_thunder")
-  end
-  alias r_thnd resist_thunder
-
-  def resist_poison
-    '%4s' % sum_property_of_items("resist_poison")
-  end
-  alias r_psn resist_poison
-
-
-  # this should reallly get it's own view... maybe...
-  def print_stats
-    <<-EOF
-Dmg   #{wpn_dmg_p} | Def       #{defense} |  str  #{strength},   str  #{strength},   sta  #{stamina},   agi  #{agility},   int  #{intelligence},   spi  #{spirit}
-MgkAtk #{mgk_atk_p} | MgkDef   #{mgk_def} | Atk #{atk} | Precision #{pre} | Eva #{eva} | MgkEva #{mgk_eva}
-Lvl   #{level_p} | Nxtlvl  200 | Exp #{'%7s' % exp} | Resistances:#{r_wht}wht,#{r_drk}drk,#{r_cld}cld,#{r_fire}fire,#{r_thnd}thnd,#{r_psn}psn
-    EOF
-  end
 
 end
 
