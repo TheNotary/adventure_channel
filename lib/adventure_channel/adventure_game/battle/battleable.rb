@@ -1,7 +1,10 @@
+require 'adventure_channel/adventure_game/battle/battle_mathematics'
+
 # inheritance must work through this mixin pattern (call from inheriting
 # classes)
-
 def battleable
+  include AdventureChannel::AdventureGame::BattleMathematics
+
   attribute :name;       index :name
 
   # battlestatly...
@@ -33,9 +36,18 @@ def battleable
   attribute :equipment_id
   reference :equipment, :Loadout
 
+  #####################
+  # One-Liner Methods #
+  #####################
+  #
+  # Use the `define_method` convention to define one-liner methods where actual
+  # logic is conducted elsewhere.  This leaves breadcrums behind for people
+  # new to ruby.
+
+  define_method(:level) { level_calculation }
+
 
   def calculate_damage_against(defender)
-    # dmg = user
     dmg = attack - defense
   end
 
@@ -121,14 +133,12 @@ def battleable
   def wpn_dmg
     1
   end
-  def wpn_dmg_p; '%3s' % wpn_dmg; end
-
-
-  def level
-    # alternative equation:  int((1.0282*(level^3))+(0.02*(level^2))+(8.09*level)-8.2)  ... this should be married to exp granted by mobs too of course
-    earliness = 0 # this could be randomized for the player and based off of a level calculation
-    ( 0.5 * Math.sqrt(exp + earliness) ).ceil
+  def wpn_dmg_p
+    '%3s' % wpn_dmg
   end
+
+
+
   def level_p; '%3s' % level; end
 
   def attribues_for_level
@@ -182,6 +192,7 @@ Lvl   #{level_p} | Nxtlvl  200 | Exp #{'%7s' % exp} | Resistances:#{r_wht}wht,#{
   end
 
 end
+
 
 
 module AdventureChannel
