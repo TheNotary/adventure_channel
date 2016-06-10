@@ -3,7 +3,7 @@
     { "code": "mob-0001",
       "name": "Green Goblin",
       "loot": [{ "potion": "100" }],
-      "abilities": [ { "goblin_punch": { "dmg": "1", "odds": "100" } } ],
+      "abilities": { "goblin_punch": { "dmg": "1", "odds": "90" }, "goblin_kick": { "dmg": "2", "odds": "10" } } ,
       "base_attributes": [],
       "special_permenant_modifiers": []
     }

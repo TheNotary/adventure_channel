@@ -31,10 +31,8 @@ describe AdventureChannel::AdventureGame::Mob do
     it "should have decent stats compared to users of a given level"
 
     it "should be able to use it's mob moves on users" do
-      # do this next
-      move = @mob.determine_next_action
-      expect(move).to eq "Goblin Punch"
-
+      move = @mob.pick_next_action
+      expect(["goblin_punch", "goblin_kick"]).to include(move)
     end
   end
 

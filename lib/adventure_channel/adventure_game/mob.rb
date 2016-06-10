@@ -47,6 +47,24 @@ module AdventureChannel
         attributes = max_hp_mp_based_on_base.merge(attributes)
       end
 
+      def pick_next_action
+        abs = JSON.parse(abilities)
+
+        sum_of_odds = abs.inject(:+) { |s, h| h.last["odds"].to_i }
+
+        random_num = rand(1..sum_of_odds)
+
+        sorted_abilities_decending = abs.sort_by { |k,v| v["odds"].to_i }.reverse
+
+        # iterate over the abilities, summing thier odds to c
+        # when c >= the number picked, use that value
+        c = 0
+        sorted_abilities_decending.each do |name, ability_data|
+          c += ability_data["odds"].to_i
+          return name if c > random_num
+        end
+      end
+
 
 
     end
