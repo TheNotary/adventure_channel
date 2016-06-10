@@ -1,7 +1,7 @@
 module AdventureChannel
   module AdventureGame
 
-    module StatsPrinter
+    module StatsHelper
 
       # Defines resistences
       def self.resistence_definitions

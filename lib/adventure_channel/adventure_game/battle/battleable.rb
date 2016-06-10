@@ -1,5 +1,5 @@
 require 'adventure_channel/adventure_game/battle/battle_mathematics'
-require 'adventure_channel/adventure_game/battle/stats_printer'
+require 'adventure_channel/adventure_game/battle/stats_helper'
 
 AdventureChannel::AdventureGame::Resistances = [:white, :dark, :cold, :fire, :thunder, :poison]
 
@@ -7,7 +7,7 @@ AdventureChannel::AdventureGame::Resistances = [:white, :dark, :cold, :fire, :th
 # classes)
 def battleable
   include AdventureChannel::AdventureGame::BattleMathematics
-  include AdventureChannel::AdventureGame::StatsPrinter
+  include AdventureChannel::AdventureGame::StatsHelper
 
   attribute :name;       index :name
 
@@ -50,10 +50,10 @@ def battleable
 
   define_method(:level) { level_calculation }
 
-  AdventureChannel::AdventureGame::StatsPrinter.resistence_definitions # e.g. resist_cold
+  AdventureChannel::AdventureGame::StatsHelper.resistence_definitions # e.g. resist_cold
 
   # This allows battleable objects to print their resistences stats
-  AdventureChannel::AdventureGame::StatsPrinter.resistances_printer  # e.g. p_cold
+  AdventureChannel::AdventureGame::StatsHelper.resistances_printer  # e.g. p_cold
 
 
   def calculate_damage_against(defender)
