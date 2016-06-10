@@ -1,4 +1,5 @@
 module AdventureChannel
+  
   module Controller
     # include AdventureChannel::AdventureGame
 

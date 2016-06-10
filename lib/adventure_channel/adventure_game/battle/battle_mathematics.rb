@@ -1,5 +1,4 @@
 module AdventureChannel
-
   module AdventureGame
 
     module BattleMathematics
@@ -12,5 +11,6 @@ module AdventureChannel
       end
 
     end
+    
   end
 end

@@ -1,7 +1,6 @@
 require 'adventure_channel/adventure_game/battle/battleable'
 
 module AdventureChannel
-
   module AdventureGame
 
     class Mob < Ohm::Model
@@ -72,5 +71,4 @@ module AdventureChannel
     end
 
   end
-
 end

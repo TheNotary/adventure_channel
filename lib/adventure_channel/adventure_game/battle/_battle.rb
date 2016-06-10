@@ -1,5 +1,4 @@
 module AdventureChannel
-
   module AdventureGame
 
     class Battle
@@ -107,5 +106,4 @@ module AdventureChannel
     end
 
   end
-
 end

@@ -1,7 +1,6 @@
 require 'adventure_channel/adventure_game/battle/battleable'
 
 module AdventureChannel
-
   module AdventureGame
 
     class User < Ohm::Model
@@ -65,5 +64,4 @@ Status Effects:  [Overly Worried About Entropy] [Lost]
     end
 
   end
-
 end

@@ -1,5 +1,6 @@
 module AdventureChannel
   module AdventureGame
+
     class Item < Ohm::Model
       # include Ohm::DataTypes
 
@@ -23,5 +24,6 @@ module AdventureChannel
 
 
     end
+
   end
 end

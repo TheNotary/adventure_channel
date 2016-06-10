@@ -1,5 +1,4 @@
 module AdventureChannel
-
   module AdventureGame
 
     class Game
@@ -35,10 +34,7 @@ module AdventureChannel
 
       end
 
-
-
     end
 
   end
-
 end

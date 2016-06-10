@@ -1,5 +1,6 @@
 module AdventureChannel
   module AdventureGame
+
     class Loadout < Ohm::Model
       attribute :head_id
       reference :head,          :Item
@@ -31,5 +32,6 @@ module AdventureChannel
       end
 
     end
+
   end
 end
