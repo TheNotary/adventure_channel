@@ -21,7 +21,7 @@ describe AdventureChannel::AdventureGame::User do
     end
 
     it "should know its overal defense" do
-      expect(@user.effective_defense).to eq 3
+      expect(@user.effective_defense).to eq 5
     end
 
     it "should know its attack" do
@@ -46,7 +46,7 @@ describe AdventureChannel::AdventureGame::User do
 
     it "should know its stats" do
       expected_stats = <<-EOF
-Dmg     1 | Def       3 |  str  1,   sta  1,   agi  1,   int  1,   spi  1
+Dmg     1 | Def       5 |  str  1,   sta  1,   agi  1,   int  1,   spi  1
 MgkAtk  0 | MgkDef    1 | Atk 6 | Precision  0 | Eva  0 | MgkEva  0
 Lvl     1 | Nxtlvl  200 | Exp       1 | Resistances:   0wht,   0drk,  50cld,   0fire,   0thnd,   0psn
       EOF
@@ -69,7 +69,7 @@ Lvl     1 | Nxtlvl  200 | Exp       1 | Resistances:   0wht,   0drk,  50cld,   0
   it "can_apply_earned_attributes after leveling"
 
   it "can calculate damage against a mob" do
-    expect(@user.calculate_damage_against(@mob)).to eq 5
+    expect(@user.calculate_damage_against(@mob)).to eq 4
   end
 
 

@@ -84,14 +84,12 @@ def battleable
     atk_base + sum_property_of_items("atk") + atk_from_stats
   end
 
-  # TODO: create functions effective_agility that takes into account modifiers
-  def atk_from_stats
-    (effective_strength * 2) + (effective_agility)
-  end
+  define_method(:atk_from_stats) { atk_from_stats_calculation }
+  define_method(:defense_from_stats) { defense_from_stats_calculation }
 
   # [Composite Stat]
   def effective_defense
-    defense_base + sum_property_of_items("defense") # + defense_from_stats
+    defense_base + sum_property_of_items("defense") + defense_from_stats
   end
 
   def effective_mgk_defense

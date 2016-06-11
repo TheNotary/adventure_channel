@@ -18,6 +18,14 @@ module AdventureChannel
         dmg = atk - defender.effective_defense
       end
 
+      def atk_from_stats_calculation
+        (effective_strength * 2) + (effective_agility)
+      end
+
+      def defense_from_stats_calculation
+        effective_strength
+      end
+
     end
 
   end

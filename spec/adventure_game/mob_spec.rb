@@ -28,7 +28,7 @@ describe AdventureChannel::AdventureGame::Mob do
     it "should be able to be spawned given a code and a level"
 
     it "should have decent stats compared to users of a given level" do
-      expect(@mob.effective_defense).to eq 1
+      expect(@mob.effective_defense).to eq 2
     end
 
     it "should be able to use it's mob moves on users" do
