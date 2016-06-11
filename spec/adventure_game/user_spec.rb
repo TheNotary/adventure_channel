@@ -17,20 +17,30 @@ describe AdventureChannel::AdventureGame::User do
     end
 
     it "should know its defesive value from equipment" do
-      expect(@user.sum_property_of_items("def")).to eq 1
+      expect(@user.sum_property_of_items("defense")).to eq 2
     end
 
     it "should know its overal defense" do
-      expect(@user.defense).to eq 2
+      expect(@user.defense).to eq 3
     end
 
     it "should know its attack" do
-      expect(@user.attack).to eq 4
+      expect(@user.atk).to eq 4
     end
+
+    it "should know it's base strength" do
+      expect(@user.strength).to eq 1
+    end
+
+    it "should know it's effective strength" do
+      expect(@user.effective_strength).to eq 2
+    end
+
+
 
     it "should know its stats" do
       expected_stats = <<-EOF
-Dmg     1 | Def       2 |  str  1,   sta  1,   agi  1,   int  1,   spi  1
+Dmg     1 | Def       3 |  str  1,   sta  1,   agi  1,   int  1,   spi  1
 MgkAtk  0 | MgkDef    0 | Atk 4 | Precision  0 | Eva  0 | MgkEva  0
 Lvl     1 | Nxtlvl  200 | Exp       1 | Resistances:   0wht,   0drk,  50cld,   0fire,   0thnd,   0psn
       EOF
@@ -53,6 +63,7 @@ Lvl     1 | Nxtlvl  200 | Exp       1 | Resistances:   0wht,   0drk,  50cld,   0
   it "can_apply_earned_attributes after leveling"
 
   it "can calculate damage against a mob" do
+    # FIXME: test fails because of flaw in calculate_damage_against
     expect(@user.calculate_damage_against(@mob)).to eq 2
   end
 

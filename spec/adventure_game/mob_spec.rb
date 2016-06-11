@@ -28,12 +28,17 @@ describe AdventureChannel::AdventureGame::Mob do
 
     it "should be able to be spawned given a code and a level"
 
-    it "should have decent stats compared to users of a given level"
+    it "should have decent stats compared to users of a given level" do
+      #expect(@mob.defense).to eq 1
+    end
 
     it "should be able to use it's mob moves on users" do
       move = @mob.pick_next_action
       expect(["goblin_punch", "goblin_kick"]).to include(move)
     end
+
+
+
   end
 
 end

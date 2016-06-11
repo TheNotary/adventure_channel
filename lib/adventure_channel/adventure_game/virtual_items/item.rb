@@ -14,7 +14,7 @@ module AdventureChannel
       # The meta attribute for Items indicates it's class specific data
       # different item_classes will have different data hash layouts, eg...
       # weapons: { "dmg": "1", "type": "thunder", "swing_time": "2.1" }
-      # armor: { "slot": ["legs"], "def": "1", "weight": "1", "resistance-cold": "50", "modify-max_hp": "1" }
+      # armor: { "slot": ["legs"], "defense": "1", "weight": "1", "resistance-cold": "50", "modify-max_hp": "1" }
       # consumable: { "effect-current_hp": "10" }
       # quest_items only have names
       attribute :meta  #, Type::Hash

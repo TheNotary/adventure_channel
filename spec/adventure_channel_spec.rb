@@ -48,7 +48,7 @@ describe AdventureChannel do
 
       # TODO: Write mob stealing from the channel's treasury
       # A mob can beginning stealing from the channel's treasury
-      binding.pry
+
 
       # TODO: Write test for A mob can attack a player
 

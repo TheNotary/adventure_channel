@@ -1,5 +1,5 @@
 module AdventureChannel
-  
+
   module Controller
     # include AdventureChannel::AdventureGame
 
@@ -71,7 +71,6 @@ module AdventureChannel
       # atm, humans can only fight bots, not other humans..... hmmm.....
       # so we won't reply to a bot
       # m.reply response[:effects_for_defender].join("\n")
-      binding.pry
       # announce if mob dies
     end
 

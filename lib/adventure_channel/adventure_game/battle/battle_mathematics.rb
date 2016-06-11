@@ -10,6 +10,10 @@ module AdventureChannel
         ( 0.5 * Math.sqrt(exp + earliness) ).ceil
       end
 
+      def attribues_for_level_calculation
+        attributes = 6 + level * 4
+      end
+
     end
 
   end

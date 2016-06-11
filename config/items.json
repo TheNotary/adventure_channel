@@ -12,25 +12,25 @@
       "name": "really baggy shuffler pants you wish you hadn't bought",
       "item_class": "armor",
       "value": "20",
-      "meta": { "slot": ["legs"], "def": "1", "weight": "10", "resist_cold": "50", "modify-max_hp": "20" }
+      "meta": { "slot": ["legs"], "defense": "1", "weight": "10", "resist_cold": "50", "modify-max_hp": "20" }
     },
     { "code": "shirt-0001",
       "name": "Defcon T-Shirt",
       "item_class": "armor",
       "value": "20",
-      "meta": { "slot": ["shirt"], "def": "1", "weight": "1", "resist_cold": "-10", "resist_dark": "20", "modify-max_hp": "20" }
+      "meta": { "slot": ["shirt"], "defense": "1", "weight": "1", "resist_cold": "-10", "resist_dark": "20", "modify-max_hp": "20" }
     },
     { "code": "shoes-0001",
       "name": "~Choon~ Shoes",
       "item_class": "armor",
       "value": "20",
-      "meta": { "slot": ["shirt"], "def": "1", "weight": "1", "resist_cold": "-10", "resist_dark": "20", "modify-max_hp": "20" }
+      "meta": { "slot": ["shirt"], "defense": "1", "weight": "1", "resist_cold": "-10", "resist_dark": "20", "modify-max_hp": "20" }
     },
-    { "code": "hair-0001",
+    { "code": "head-0001",
       "name": "Dragon Ball Z",
       "item_class": "armor",
       "value": "20",
-      "meta": { "slot": ["hair"], "def": "1", "weight": "1", "resist_cold": "-10", "resist_dark": "20", "modify-max_hp": "20" }
+      "meta": { "slot": ["head"], "defense": "1", "weight": "1", "modify-max_hp": "20", "modify-strength": "1" }
     },
 
 

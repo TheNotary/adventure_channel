@@ -17,6 +17,8 @@ module AdventureChannel
       def self.spawn(config)
         mob = self.find(code: config[:code]).first
         mob.set_attributes!(config)
+        mob.set_missing_base_attributes!
+        mob
       end
 
       # TODO: base_attributes are read from the beastiary.json file,
@@ -35,6 +37,13 @@ module AdventureChannel
 
         @attributes.merge!(attributes)
         self
+      end
+
+      # TODO: do me next
+      # if you spawn a mob and don't explicitly specify, say, strength, this
+      # function should set a good default for strength
+      def set_missing_base_attributes!
+        # looks like I'll need to change Mob.find to Mob.spawn
       end
 
 

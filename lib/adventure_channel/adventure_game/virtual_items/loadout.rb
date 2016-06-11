@@ -23,6 +23,7 @@ module AdventureChannel
         s = self.create
         s.right_hand = Item.find(code: "wep-0001").first
         s.legs = Item.find(code: "legs-0001").first
+        s.head = Item.find(code: "head-0001").first
         s.save
         s
       end

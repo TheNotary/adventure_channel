@@ -2,9 +2,12 @@ require 'adventure_channel/adventure_game/battle/battle_mathematics'
 require 'adventure_channel/adventure_game/battle/stats_helper'
 
 AdventureChannel::AdventureGame::Resistances = [:white, :dark, :cold, :fire, :thunder, :poison]
+AdventureChannel::AdventureGame::BasicCombatStats = [:strength, :stamina, :agility, :intelligence, :spirit]
+AdventureChannel::AdventureGame::CompositCombatStats = [:atk, :defense, :mgk_atk, :mgk_def]
+AdventureChannel::AdventureGame::PercentageCombatStats = [:pre, :eva, :mgk_eva]
 
-# inheritance must work through this mixin pattern (call from inheriting
-# classes)
+
+# inheritance must work through this mixin pattern (call from inheriting classes)
 def battleable
   include AdventureChannel::AdventureGame::BattleMathematics
   include AdventureChannel::AdventureGame::StatsHelper
@@ -25,8 +28,8 @@ def battleable
   attribute :intelligence, lambda { |x| x.to_i }
   attribute :spirit, lambda { |x| x.to_i }
 
-  attribute :defense_base, lambda { |x| x.to_i }
   attribute :attack_base, lambda { |x| x.to_i }
+  attribute :defense_base, lambda { |x| x.to_i }
   attribute :magic_defense_base, lambda { |x| x.to_i }
 
   attribute :special_permenant_modifiers # eg { special_permenant_modifiers: [ "jaunt_quest_completed": [ modify-resist_fire": "10", "modify-title": "Super Cool Dude"] }
@@ -49,25 +52,41 @@ def battleable
   # new to ruby.
 
   define_method(:level) { level_calculation }
+  define_method(:attribues_for_level) { attribues_for_level_calculation }
 
-  AdventureChannel::AdventureGame::StatsHelper.resistence_definitions # e.g. resist_cold
+  # TODO: create functions effective_agility that takes into account modifiers
+  def atk_from_stats
+    (strength * 2) + (agility)
+  end
+
+
+  AdventureChannel::AdventureGame::StatsHelper.resistence_stat_definitions # e.g. resist_cold
 
   # This allows battleable objects to print their resistences stats
   AdventureChannel::AdventureGame::StatsHelper.resistances_printer  # e.g. p_cold
 
+  
+  AdventureChannel::AdventureGame::StatsHelper.effective_combat_stat_definitions
 
+
+  # TODO: move to mathematics
   def calculate_damage_against(defender)
-    dmg = attack - defense
+    # binding.pry
+    # FIXME: change this to defender.defense
+    dmg = atk - defense
   end
 
-  def attack
-    attack_base + sum_property_of_items("atk") + attack_from_stats
+  # [Composite Stat]
+  # Attack is special because it is both a base stat inherint to the battler,
+  # but also a calculation _based on other stats_ and of course direct
+  # modifiers...  a composite stat
+  def atk
+    attack_base + sum_property_of_items("atk") + atk_from_stats
   end
-  alias atk attack
 
+  # [Composite Stat]
   def defense
-    # all_def_from_modifiers = nil
-    defense_base + sum_property_of_items("def")
+    defense_base + sum_property_of_items("defense") # + defense_from_stats
   end
 
   def def_from_items
@@ -75,7 +94,7 @@ def battleable
 
     equipment.pieces.each do |piece_sym|
       piece = equipment.send(piece_sym)
-      defense_sum += JSON.parse(piece.meta)["def"].to_i unless piece.nil?
+      defense_sum += JSON.parse(piece.meta)["defense"].to_i unless piece.nil?
     end
 
     defense_sum
@@ -92,11 +111,6 @@ def battleable
     sum
   end
 
-  # TODO: create functions effective_agility that takes into account modifiers
-  def attack_from_stats
-    (strength * 2) + (agility)
-  end
-
   # TODO: when this gets implemented, I think status_effects should store a
   # datastructure that looks like...
   # { status_effects: [ { spell_fortitude: { expires_at: "SOMETIME", modify-def: "2" } } ]
@@ -105,53 +119,34 @@ def battleable
   end
 
 
-  def precision
+  # [stat] precision, likelyhood of attack landing on target
+  def pre
     '%2s' % 0
   end
-  alias pre precision
 
-  def evasion
+  # [stat] evasion, likelyhood of dodging attack from attacker
+  def eva
     '%2s' % 0
   end
-  alias eva evasion
 
+  # magic_evasion
+  def mgk_eva
+    '%2s' % 0
+  end
 
-  def magic_attack
+  # [stat] magic_attack, dmg of spell based attack
+  def mgk_atk
     0
   end
-  alias mgk_atk magic_attack
 
-  def mgk_atk_p
-    '%2s' % magic_attack
-  end
-
-  def magic_defense
+  # magic_defense
+  def mgk_def
     '%2s' % 0
   end
-  alias mgk_def magic_defense
-
-  def magic_evasion
-    '%2s' % 0
-  end
-  alias mgk_eva magic_evasion
 
 
 
 
-
-  # weapon damage
-  def wpn_dmg
-    1
-  end
-
-
-
-
-  def level_p; '%3s' % level; end
-
-  def attribues_for_level
-    attributes = 6 + level * 4
-  end
 
   # TODO: finish this when you test leveling up
   def can_apply_earned_attribute?
