@@ -93,7 +93,7 @@ module AdventureChannel
       def print_stats
         <<-EOF
 Dmg   #{p_wpn_dmg} | Def       #{effective_defense} |  str  #{strength},   sta  #{stamina},   agi  #{agility},   int  #{intelligence},   spi  #{spirit}
-MgkAtk #{p_mgk_atk} | MgkDef   #{p_mgk_defense} | Atk #{atk} | Precision  #{pre} | Eva  #{eva} | MgkEva  #{mgk_eva}
+MgkAtk #{p_mgk_atk} | MgkDef   #{p_mgk_defense} | Atk#{p_atk} | Precision  #{pre} | Eva  #{eva} | MgkEva  #{mgk_eva}
 Lvl   #{p_level} | Nxtlvl  200 | Exp #{'%7s' % exp} | Resistances:#{p_white}wht,#{p_dark}drk,#{p_cold}cld,#{p_fire}fire,#{p_thunder}thnd,#{p_poison}psn
         EOF
       end

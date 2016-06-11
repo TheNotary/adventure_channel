@@ -25,7 +25,8 @@ describe AdventureChannel::AdventureGame::User do
     end
 
     it "should know its attack" do
-      expect(@user.atk).to eq 6
+      expect(@user.atk_base).to eq 1
+      expect(@user.effective_atk).to eq 6
     end
 
     it "should know it's base strength" do

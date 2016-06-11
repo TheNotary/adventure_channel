@@ -61,8 +61,7 @@ def battleable
   define_method(:attribues_for_level) { attribues_for_level_calculation }
 
   AdventureChannel::AdventureGame::StatsHelper.resistence_stat_definitions # e.g. resist_cold
-
-  # This allows battleable objects to print their resistences stats
+  # This allows battleable objects to print their resistences stats to strings
   AdventureChannel::AdventureGame::StatsHelper.resistances_printer  # e.g. p_cold
 
   AdventureChannel::AdventureGame::StatsHelper.effective_combat_stat_definitions
@@ -72,32 +71,25 @@ def battleable
   AdventureChannel::AdventureGame::StatsHelper.percentage_combat_stat_printer
 
 
-  def calculate_damage_against(defender)
-    dmg = damage_calculation(defender)
-  end
-
   # [Composite Stat]
   # Attack is special because it is both a base stat inherint to the battler,
   # but also a calculation _based on other stats_ and of course direct
   # modifiers...  a composite stat
-  def atk
-    atk_base + sum_property_of_items("atk") + atk_from_stats
+  def effective_atk
+    atk_base + sum_property_of_items("atk") + atk_from_stats_calculation
   end
-
-  define_method(:atk_from_stats) { atk_from_stats_calculation }
-  define_method(:defense_from_stats) { defense_from_stats_calculation }
 
   # [Composite Stat]
   def effective_defense
-    defense_base + sum_property_of_items("defense") + defense_from_stats
+    defense_base + sum_property_of_items("defense") + defense_from_stats_calculation
   end
 
   def effective_mgk_defense
-    mgk_defense_base + sum_property_of_items("magic_defense") # + mdk_defense_from_stats
+    mgk_defense_base + sum_property_of_items("magic_defense") + mgk_defense_from_stats_calculation
   end
 
   def effective_mgk_atk
-    mgk_atk_base + sum_property_of_items("magic_atk") # + mdk_defense_from_stats
+    mgk_atk_base + sum_property_of_items("magic_atk") + mgk_atk_from_stats_calculation
   end
 
   def sum_property_of_items(property)
@@ -116,6 +108,12 @@ def battleable
   # { status_effects: [ { spell_fortitude: { expires_at: "SOMETIME", modify-def: "2" } } ]
   def collect_from_status_effects(key)
     # s = JSON.parse(status_effects)
+  end
+
+  # sums stats like strength, agility, hp, to see how many attributes have been
+  # applied to a unit's bases states.
+  def sum_allocated_attributes
+
   end
 
   # TODO: finish this when you test leveling up

@@ -14,8 +14,8 @@ module AdventureChannel
         attributes = 6 + level * 4
       end
 
-      def damage_calculation(defender)
-        dmg = atk - defender.effective_defense
+      def calculate_damage_against(defender)
+        dmg = effective_atk - defender.effective_defense
       end
 
       def atk_from_stats_calculation
@@ -24,6 +24,14 @@ module AdventureChannel
 
       def defense_from_stats_calculation
         effective_strength
+      end
+
+      def mgk_defense_from_stats_calculation
+
+      end
+
+      def mgk_atk_from_stats_calculation
+
       end
 
     end
