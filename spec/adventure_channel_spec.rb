@@ -43,7 +43,7 @@ describe AdventureChannel do
       expect($MessagesPM).to include("A battle has started")
 
       expect($MessagesChannel).to include("~ A monster has appeared ~")
-      expect($MessagesChannel).to include("> lvl 0 Green Goblin")
+      expect($MessagesChannel).to include("> lvl 3 Green Goblin")
 
 
       # TODO: Write mob stealing from the channel's treasury

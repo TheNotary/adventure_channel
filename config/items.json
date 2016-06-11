@@ -30,7 +30,7 @@
       "name": "Dragon Ball Z",
       "item_class": "armor",
       "value": "20",
-      "meta": { "slot": ["head"], "defense": "1", "weight": "1", "modify-max_hp": "20", "modify-strength": "1" }
+      "meta": { "slot": ["head"], "mgk_atk": "1", "defense": "1", "weight": "1", "modify-max_hp": "20", "modify-strength": "1" }
     },
 
 

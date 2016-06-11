@@ -43,7 +43,31 @@ module AdventureChannel
       # if you spawn a mob and don't explicitly specify, say, strength, this
       # function should set a good default for strength
       def set_missing_base_attributes!
+
         # looks like I'll need to change Mob.find to Mob.spawn
+        self.exp = 20 if self.exp == 0
+        c = attribues_for_level
+        # FIXME: subract sum of existing attributes from c before the loop...
+
+        [BasicCombatStats, PercentageCombatStats, CompositCombatStats].flatten.each do |s|
+          next if attribute_deliberately_set_during_spawn?(s)
+
+          if BasicCombatStats.include?(s)
+            self.send("#{s}=".to_sym, 1)
+          else
+            self.send("#{s}=".to_sym, 1) # convert to a percentage decimal down the road...
+          end
+
+          c -= 1
+          break if c <= 0
+        end
+
+
+      end
+
+      # make sure we don't override attributes that were determined at spawn
+      def attribute_deliberately_set_during_spawn?(s)
+        self.send(s.to_sym) && self.send(s.to_sym) > 0
       end
 
 

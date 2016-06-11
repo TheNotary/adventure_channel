@@ -3,8 +3,8 @@ require 'adventure_channel/adventure_game/battle/stats_helper'
 
 AdventureChannel::AdventureGame::Resistances = [:white, :dark, :cold, :fire, :thunder, :poison]
 AdventureChannel::AdventureGame::BasicCombatStats = [:strength, :stamina, :agility, :intelligence, :spirit]
-AdventureChannel::AdventureGame::CompositCombatStats = [:atk, :defense, :mgk_atk, :mgk_def]
-AdventureChannel::AdventureGame::PercentageCombatStats = [:pre, :eva, :mgk_eva]
+AdventureChannel::AdventureGame::PercentageCombatStats = [:eva, :pre, :mgk_eva, :mgk_pre]
+AdventureChannel::AdventureGame::CompositCombatStats = [:defense_base, :atk_base, :mgk_atk_base, :mgk_defense_base]
 
 
 # inheritance must work through this mixin pattern (call from inheriting classes)
@@ -28,15 +28,20 @@ def battleable
   attribute :intelligence, lambda { |x| x.to_i }
   attribute :spirit, lambda { |x| x.to_i }
 
-  attribute :attack_base, lambda { |x| x.to_i }
+  attribute :eva, lambda { |x| x.to_i }
+  attribute :pre, lambda { |x| x.to_i }
+  attribute :mgk_eva, lambda { |x| x.to_i }
+  attribute :mgk_pre, lambda { |x| x.to_i }
+
+  attribute :mgk_atk_base, lambda { |x| x.to_i }
+  attribute :atk_base, lambda { |x| x.to_i }
   attribute :defense_base, lambda { |x| x.to_i }
-  attribute :magic_defense_base, lambda { |x| x.to_i }
+  attribute :mgk_defense_base, lambda { |x| x.to_i }
 
   attribute :special_permenant_modifiers # eg { special_permenant_modifiers: [ "jaunt_quest_completed": [ modify-resist_fire": "10", "modify-title": "Super Cool Dude"] }
   attribute :status_effects
 
   attribute :abilities
-
 
   list :inventory, :Item
 
@@ -51,29 +56,24 @@ def battleable
   # logic is conducted elsewhere.  This leaves breadcrums behind for people
   # new to ruby.
 
+  # exp isn't available in level_calculation...
   define_method(:level) { level_calculation }
   define_method(:attribues_for_level) { attribues_for_level_calculation }
-
-  # TODO: create functions effective_agility that takes into account modifiers
-  def atk_from_stats
-    (strength * 2) + (agility)
-  end
-
 
   AdventureChannel::AdventureGame::StatsHelper.resistence_stat_definitions # e.g. resist_cold
 
   # This allows battleable objects to print their resistences stats
   AdventureChannel::AdventureGame::StatsHelper.resistances_printer  # e.g. p_cold
 
-  
   AdventureChannel::AdventureGame::StatsHelper.effective_combat_stat_definitions
+  AdventureChannel::AdventureGame::StatsHelper.composit_stat_printer
+
+  AdventureChannel::AdventureGame::StatsHelper.percentage_combat_stat_definitions
+  AdventureChannel::AdventureGame::StatsHelper.percentage_combat_stat_printer
 
 
-  # TODO: move to mathematics
   def calculate_damage_against(defender)
-    # binding.pry
-    # FIXME: change this to defender.defense
-    dmg = atk - defense
+    dmg = damage_calculation(defender)
   end
 
   # [Composite Stat]
@@ -81,28 +81,30 @@ def battleable
   # but also a calculation _based on other stats_ and of course direct
   # modifiers...  a composite stat
   def atk
-    attack_base + sum_property_of_items("atk") + atk_from_stats
+    atk_base + sum_property_of_items("atk") + atk_from_stats
+  end
+
+  # TODO: create functions effective_agility that takes into account modifiers
+  def atk_from_stats
+    (effective_strength * 2) + (effective_agility)
   end
 
   # [Composite Stat]
-  def defense
+  def effective_defense
     defense_base + sum_property_of_items("defense") # + defense_from_stats
   end
 
-  def def_from_items
-    defense_sum = 0
+  def effective_mgk_defense
+    mgk_defense_base + sum_property_of_items("magic_defense") # + mdk_defense_from_stats
+  end
 
-    equipment.pieces.each do |piece_sym|
-      piece = equipment.send(piece_sym)
-      defense_sum += JSON.parse(piece.meta)["defense"].to_i unless piece.nil?
-    end
-
-    defense_sum
+  def effective_mgk_atk
+    mgk_atk_base + sum_property_of_items("magic_atk") # + mdk_defense_from_stats
   end
 
   def sum_property_of_items(property)
+    return 0 if equipment.nil?
     sum = 0
-
     equipment.pieces.each do |piece_sym|
       piece = equipment.send(piece_sym)
       sum += JSON.parse(piece.meta)[property].to_i unless piece.nil?
@@ -117,36 +119,6 @@ def battleable
   def collect_from_status_effects(key)
     # s = JSON.parse(status_effects)
   end
-
-
-  # [stat] precision, likelyhood of attack landing on target
-  def pre
-    '%2s' % 0
-  end
-
-  # [stat] evasion, likelyhood of dodging attack from attacker
-  def eva
-    '%2s' % 0
-  end
-
-  # magic_evasion
-  def mgk_eva
-    '%2s' % 0
-  end
-
-  # [stat] magic_attack, dmg of spell based attack
-  def mgk_atk
-    0
-  end
-
-  # magic_defense
-  def mgk_def
-    '%2s' % 0
-  end
-
-
-
-
 
   # TODO: finish this when you test leveling up
   def can_apply_earned_attribute?

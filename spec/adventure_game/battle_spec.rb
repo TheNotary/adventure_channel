@@ -22,7 +22,7 @@ describe AdventureChannel::AdventureGame::Battle do
 
     it "can generate a battle start announcement" do
       script = "~ A monster has appeared ~\n"
-      script += "> lvl 0 Green Goblin"
+      script += "> lvl 3 Green Goblin"
 
       expect(@battle.battle_start_announcement).to eq script
     end
@@ -45,7 +45,7 @@ describe AdventureChannel::AdventureGame::Battle do
 
 
 
-      
+
     end
   end
 end

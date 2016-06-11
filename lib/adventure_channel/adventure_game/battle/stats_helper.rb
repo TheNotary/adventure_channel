@@ -41,9 +41,50 @@ module AdventureChannel
         '%3s' % wpn_dmg
       end
 
+
+      # [:eva, :pre, :mgk_eva, :mgk_pre]
+
+      # e.g. effective_pre
+      def self.percentage_combat_stat_definitions
+        AdventureChannel::AdventureGame::Resistances.each do |r|
+          define_method("effective_#{r.to_s}".to_sym) { sum_property_of_items("modify-#{r.to_s}") + self.send(r) }
+        end
+      end
+
+      def self.percentage_combat_stat_printer
+        PercentageCombatStats.each do |r|
+          define_method("p_#{r.to_s}".to_sym) { '%2s' % self.send("effective_#{r.to_s}".to_sym); }
+        end
+      end
+
+      # mgk_defense_base  # Done
+
+      # effective_mgk_defense
+
+      # p_effective_mgk_defense
+
+
+      def self.composit_stat_printer
+        #  [:defense_base, :atk_base, :mgk_atk_base, :mgk_defense_base]
+        # binding.pry
+        CompositCombatStats.each do|r|
+          r = r.to_s.sub("_base", "").to_sym
+          define_method("p_#{r.to_s}".to_sym) { '%2s' % self.send("effective_#{r.to_s}".to_sym); }
+        end
+
+      end
+
+
       def p_mgk_atk
         '%2s' % mgk_atk
       end
+
+
+      # [stat] magic_attack, dmg of spell based attack
+      def mgk_atk
+        0
+      end
+
 
 
 
@@ -51,8 +92,8 @@ module AdventureChannel
       # this should reallly get it's own view... maybe...
       def print_stats
         <<-EOF
-Dmg   #{p_wpn_dmg} | Def       #{defense} |  str  #{strength},   sta  #{stamina},   agi  #{agility},   int  #{intelligence},   spi  #{spirit}
-MgkAtk #{p_mgk_atk} | MgkDef   #{mgk_def} | Atk #{atk} | Precision #{pre} | Eva #{eva} | MgkEva #{mgk_eva}
+Dmg   #{p_wpn_dmg} | Def       #{effective_defense} |  str  #{strength},   sta  #{stamina},   agi  #{agility},   int  #{intelligence},   spi  #{spirit}
+MgkAtk #{p_mgk_atk} | MgkDef   #{p_mgk_defense} | Atk #{atk} | Precision  #{pre} | Eva  #{eva} | MgkEva  #{mgk_eva}
 Lvl   #{p_level} | Nxtlvl  200 | Exp #{'%7s' % exp} | Resistances:#{p_white}wht,#{p_dark}drk,#{p_cold}cld,#{p_fire}fire,#{p_thunder}thnd,#{p_poison}psn
         EOF
       end
