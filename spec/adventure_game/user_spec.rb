@@ -66,8 +66,14 @@ Lvl     1 | Nxtlvl  200 | Exp       1 | Resistances:   0wht,   0drk,  50cld,   0
 
   end
 
-  # see can_apply_earned_attribute? in user.rb
-  it "can_apply_earned_attributes after leveling"
+  describe "experiency" do
+
+    it "can gain exp from slain mobs"
+    it "can level up and can_apply_earned_attributes?"
+    it "actual attribute points can be assigned and saved"
+
+  end
+
 
   it "can calculate damage against a mob" do
     expect(@user.calculate_damage_against(@mob)).to eq 4
