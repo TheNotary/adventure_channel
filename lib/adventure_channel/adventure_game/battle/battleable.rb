@@ -1,38 +1,42 @@
 require 'adventure_channel/adventure_game/battle/battle_mathematics'
 require 'adventure_channel/adventure_game/battle/stats_helper'
+require 'adventure_channel/adventure_game/battle/experiency'
 
 AdventureChannel::AdventureGame::Resistances = [:white, :dark, :cold, :fire, :thunder, :poison]
 AdventureChannel::AdventureGame::BasicCombatStats = [:strength, :stamina, :agility, :intelligence, :spirit]
 AdventureChannel::AdventureGame::PercentageCombatStats = [:eva, :pre, :mgk_eva, :mgk_pre]
 AdventureChannel::AdventureGame::CompositCombatStats = [:defense_base, :atk_base, :mgk_atk_base, :mgk_defense_base]
 
-
 # inheritance must work through this mixin pattern (call from inheriting classes)
 def battleable
   include AdventureChannel::AdventureGame::BattleMathematics
   include AdventureChannel::AdventureGame::StatsHelper
 
+  # experiency.rb allows for leveling up, getting exp, etc.
+  experiency
+
   attribute :name;       index :name
 
-  # battlestatly...
-  attribute :exp, lambda { |x| x.to_i }
-  attribute :attribues_for_level, lambda { |x| x.to_i }
+  # state
   attribute :hp, lambda { |x| x.to_i }
   attribute :mp, lambda { |x| x.to_i }
   attribute :max_hp, lambda { |x| x.to_i }
   attribute :max_mp, lambda { |x| x.to_i }
 
+  # Basic Stats
   attribute :strength, lambda { |x| x.to_i }
   attribute :stamina, lambda { |x| x.to_i }
   attribute :agility, lambda { |x| x.to_i }
   attribute :intelligence, lambda { |x| x.to_i }
   attribute :spirit, lambda { |x| x.to_i }
 
+  # Percentage Stats
   attribute :eva, lambda { |x| x.to_i }
   attribute :pre, lambda { |x| x.to_i }
   attribute :mgk_eva, lambda { |x| x.to_i }
   attribute :mgk_pre, lambda { |x| x.to_i }
 
+  # Base values of composit stats
   attribute :mgk_atk_base, lambda { |x| x.to_i }
   attribute :atk_base, lambda { |x| x.to_i }
   attribute :defense_base, lambda { |x| x.to_i }
@@ -42,23 +46,19 @@ def battleable
   attribute :status_effects
 
   attribute :abilities
+  attribute :white_magic
+  attribute :black_magic
+  attribute :summon
 
   list :inventory, :Item
 
   attribute :equipment_id
   reference :equipment, :Loadout
 
-  #####################
-  # One-Liner Methods #
-  #####################
+  ##########################################
+  #   Metaprogramming Method Definitions   #
+  ##########################################
   #
-  # Use the `define_method` convention to define one-liner methods where actual
-  # logic is conducted elsewhere.  This leaves breadcrums behind for people
-  # new to ruby.
-
-  # exp isn't available in level_calculation...
-  define_method(:level) { level_calculation }
-  define_method(:attribues_for_level) { attribues_for_level_calculation }
 
   AdventureChannel::AdventureGame::StatsHelper.resistence_stat_definitions # e.g. resist_cold
   # This allows battleable objects to print their resistences stats to strings
@@ -110,23 +110,4 @@ def battleable
     # s = JSON.parse(status_effects)
   end
 
-  # sums stats like strength, agility, hp, to see how many attributes have been
-  # applied to a unit's bases states.
-  def sum_allocated_attributes
-
-  end
-
-  # TODO: finish this when you test leveling up
-  def can_apply_earned_attribute?
-    # sum_of_stats > attribues_for_level + bonus_attributes
-  end
-
-
-end
-
-
-
-module AdventureChannel
-  module AdventureGame
-  end
 end

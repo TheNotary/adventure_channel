@@ -27,11 +27,11 @@ module AdventureChannel
       end
 
       def mgk_defense_from_stats_calculation
-
+        0
       end
 
       def mgk_atk_from_stats_calculation
-
+        0
       end
 
     end
