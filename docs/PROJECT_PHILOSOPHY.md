@@ -7,8 +7,8 @@ Features and units of code are welcome and well implemented if they lead up to A
 
 Code is high quality if it is highly readable or if it is well documented meta-programming that saves hundreds of lines of code.  
 
-Code is high quality if it makes considerations towards future development of the project and enables an enjoyable future of continued maintenance and extension of and to this project.  
+Code is high quality if it makes considerations towards future development of the project, enabling an enjoyable future of continued maintenance and extension of and to this project.  
 
 Features and units of code are high quality if they don't break existing tests unless those other tests passed in an architecturally flawed state of code and should be re-written anyway.
 
-Features and units of code that don't  that don't break things, are non-malicious, and are out of the way should probably be accepted in good faith in the spirit of anarchy.
+Features and units of code that don't break things, are non-malicious, and are out of the way should probably be accepted in good faith in the spirit of anarchy.

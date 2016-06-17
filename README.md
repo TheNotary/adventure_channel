@@ -37,7 +37,7 @@ To setup your basic Ruby development environment, you'll just need to...
 1. Install Ruby (I recommend installing ruby with [RVM](https://rvm.io/rvm/install) )
 1. Make sure ruby came with the bundler gem automatically `gem install bundler`
 1. `cd` into the root of this project and install it's dependencies with `bunder install`
-1. Check the configuration file at `config/application.yml`
+1. Do `cp config/application.yml.example config/application.yml` and check the configuration file
 1. Test that things work by running the test suite `rspec spec/`
 
 
@@ -59,13 +59,13 @@ Using test driven development when hacking on this app will save lots of time.  
 e.g. the below pending test...
 
 ```
-it "should do a thing that was once considered but no one had to to implement"
+it "should do a thing that was once considered but no one had time to implement"
 ```
 
 Might become...
 
 ```
-it "should do a thing that was once considered but no one had to to implement" do
+it "should do a thing that was once considered but no one had time to implement" do
   # This kind of puts a break point in your code so you can try running commands
   # It's indispensable in the ruby world and it along with unit tests is the
   # reason we don't bother with code debuggers
