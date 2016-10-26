@@ -14,3 +14,6 @@ require 'adventure_channel/adventure_game/battle/mob'
 
 require 'adventure_channel/adventure_game/virtual_items/loadout'
 require 'adventure_channel/adventure_game/virtual_items/item'
+
+require 'adventure_channel/adventure_game/world/questly'
+require 'adventure_channel/adventure_game/world/quest'
