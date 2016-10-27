@@ -4,7 +4,7 @@ module AdventureChannel
   module AdventureGame
 
     class Mob < Ohm::Model
-      battleable
+      include Battleable
 
       attribute :code;         index :code
       attribute :loot

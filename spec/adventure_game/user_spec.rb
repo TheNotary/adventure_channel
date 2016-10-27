@@ -69,6 +69,11 @@ Lvl     1 | Nxtlvl  200 | Exp       1 | Resistances:   0wht,   0drk,  50cld,   0
   describe "experiency" do
 
     it "can gain exp from slain mobs"
+    it "can sum_allocated_attributes" do
+      # FIXME: this will eventually allow a user to apply newly earned attributes
+      # to health, strength, etc... stubbed now to test a refactor
+      expect(@user.sum_allocated_attributes).to eq :stubbed
+    end
     it "can level up and can_apply_earned_attributes?"
     it "actual attribute points can be assigned and saved"
 

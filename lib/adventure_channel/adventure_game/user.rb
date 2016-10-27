@@ -6,8 +6,8 @@ module AdventureChannel
   module AdventureGame
 
     class User < Ohm::Model
-      battleable
-      questly
+      include Battleable
+      include Questly
 
       def self.spawn_for_new_player(name: nil)
         s = self.create(name: name, max_hp: 10, hp: 10, max_mp: 10, mp: 10,
