@@ -31,25 +31,29 @@ This app is being developed using a loose TDD methodology.  Not only must all PR
 
 ### Basic Dev Environment
 
-#### Ruby Stuff
+#### Ruby and App Stuff
 To setup your basic Ruby development environment, you'll just need to...
 
 1. Install Ruby (I recommend installing ruby with [RVM](https://rvm.io/rvm/install) )
 1. Make sure ruby came with the bundler gem automatically `gem install bundler`
 1. `cd` into the root of this project and install it's dependencies with `bunder install`
 1. Do `cp config/application.yml.example config/application.yml` and check the configuration file
-1. Test that things work by running the test suite `rspec spec/`
+1. Test that things work by running the test suite `rspec spec/` (you should get friendly error messages about it not finding an IRC server or Redis, we'll get to that next)
 
 
 #### Server Stuff
 Next you'll need to get the application dependencies installed.  
 
-1.  Go over this [Redis Installation Instructinos](http://redis.io/download) page
-1.  (Optional) Install a local IRC server eg `apt-get install ngircd`
+1.  Get Redis database online in some way [Redis Installation Instructinos](http://redis.io/download) page
+1.  Get access to an IRC server and channel (ideally a locally running irc server, `apt-get install ngircd`)
 
+If you have docker installed on your dev machine, bringing up a solid local "staging" environment is as easy as running...
 
-When the above is all done
+```
+$ make boot-containers-dependency
+```
 
+The containers booted from this command are source readable it [thenotary/ircd-docker](https://github.com/thenotary/ircd-docker) and [library/redis](https://hub.docker.com/_/redis/).  Check the `Makefile` in this repo to see what docker commands are being run.  
 
 
 ## Testing Advice
@@ -74,14 +78,11 @@ it "should do a thing that was once considered but no one had time to implement"
 end
 ```
 
-
 When tests fail, at the bottom of the screen, it prints the command to run specifically that test.  Try not to make changes in other parts of the code that cause other tests to break unless it's clear that it's a good idea (the other tests seemed like stubs) or you've created an issue to bring up some insufficiencies of what may have actually been intended design (it may well have been an oversight).  
 
-
-To run all the tests, you need to at least run an IRC server locally and have config/application.yml configured correctly to connect to it.  Theoretically you could use a remote IRC server, but as a rule, tests shouldn't need to use the network expect in very narrow cases where you're testing compliance with a network service.  Additionally, as bazz showed me there's added flexibility in testing when connecting through a ZNC server but that's totally optional.  
+To run all the tests, you need to at least run an IRC server locally and have config/application.yml configured correctly to connect to it.  Theoretically you could use a remote IRC server, but as a rule, tests shouldn't need to use the network except in very narrow cases where you're testing compliance with a network service.  If no IRC server can be connected to, then the IRC based tests will be skipped.  A redisDB server will be required for additional tests.  
 
 You can run `./bin/launch` or `./bin/console` to play around with things too.  But ideally you'll just create a new test for the feature you're working on.  
-
 
 
 ## Deploy/ Installation

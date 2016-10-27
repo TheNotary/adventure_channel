@@ -25,7 +25,7 @@ irc_messages_per_second: '2'
 
 # The sytax for the password field when connecting through ZNC is nick/server_alias:password
 # if you want to connect without ZNC your pass will likely look totally different
-irc_password: "AdvChan/testserver:pass_for_znc"
+#irc_password: "AdvChan/testserver:pass_for_znc"
 admin_nicks: "TheNotary testc"
 auth_token: "thisissecret"
 
@@ -35,4 +35,4 @@ auth_token: "thisissecret"
 ####################
 
 test_irc_nick: "testc"
-test_irc_password: "testc/testserver:pass_for_znc"
+#test_irc_password: "testc/testserver:pass_for_znc"
